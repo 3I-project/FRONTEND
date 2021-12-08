@@ -1,0 +1,16 @@
+button {
+    font-size: 1.5rem;
+    color: #ffffff;
+    border: none;
+    padding: 13px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &.orange-btn {
+        background: #FF5018;
+    }
+
+    &.blue-btn {
+        background: #1890FF;
+    }
+}

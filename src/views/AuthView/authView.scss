@@ -1,0 +1,58 @@
+.auth-window {
+  width: 861px;
+  height: 555px;
+  background: #FCFCFC;
+  box-shadow: 0 0 19px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  &.main-window {
+    padding: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .window {
+
+      &__wrapper {
+        width: 95%;
+        margin: 0 auto;
+      }
+
+      &__title {
+        text-align: center;
+        color: #000000;
+        font-size: 1.775rem;
+        font-family: "Roboto", sans-serif;
+        font-weight: 600;
+        margin-bottom: 24px;
+      }
+
+      &__text {
+        text-align: justify;
+        color: #000000;
+        font-size: 1.125rem;
+        line-height: 26px;
+
+        &:last-child {
+          margin-top: 15px;
+        }
+      }
+
+      &__img {
+        display: block;
+        margin: 27px auto 0 auto;
+      }
+
+      &__buttons {
+        margin-top: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .button-login {
+          width: 146px;
+        }
+      }
+    }
+  }
+}
