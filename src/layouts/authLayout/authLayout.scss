@@ -11,4 +11,8 @@
     background: url("../../assets/auth/bg-1.svg") top 10px right 10px no-repeat,
                 url("../../assets/auth/bg-1.svg") bottom -60px left -20px no-repeat, $authBg;
   }
+
+  &.auth-stage {
+    background: url("../../assets/auth/key-bg.svg") top 0px left 0px no-repeat, $authBg;
+  }
 }

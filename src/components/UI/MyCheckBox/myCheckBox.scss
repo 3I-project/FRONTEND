@@ -1,0 +1,42 @@
+.myCheckbox {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  color: #002C39;
+  font-size: 1.5625rem;
+  user-select: none;
+
+  input {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    margin: 0 13px 0 0;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+
+    width: 28px;
+    height: 28px;
+    border: 3px solid #FF5018;
+    color: #FF5018;
+    border-radius: 50%;
+
+      &::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        background-color: #002C39;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 150ms transform ease-in-out;
+      }
+
+      &:checked {
+        transition: 150ms transform ease-in-out;
+
+        &::before {
+          transform: scale(1);
+        }
+      }
+  }
+}

@@ -1,28 +1,39 @@
 <template>
-  <div class="auth-window main-window">
-    <div class="window__wrapper">
-      <h1 class="window__title">Добро пожаловать в «Инкубатор Иновационных Идей»!</h1>
-      <div class="window__describe">
-        <p class="window__text">«Инкубатор Иновационных Идей» (3И) - это уникальное web-приложение, позволяющее очень просто выносить идеи, возникающии в организации, на голосование.</p>
-        <p class="window__text">Зарегистрируйтесь в нашей системе и принимайте участие в решинии важных вопросов вашей организации.</p>
+  <div class="auth-window login-window">
+    <div class="auth__wrapper">
+      <h1 class="auth-window__title login-window__title">
+        Авторизация
+      </h1>
+      <div class="login-window__select">
+        <p class="auth-window__text">Войти как:</p>
+        <div class="auth-select-checkbox">
+          <MyCheckBox :checked="true" :elementID="'employer'" :check-box-group="'authCheckbox'">Сотрудник</MyCheckBox>
+          <MyCheckBox :elementID="'organizations'" :check-box-group="'authCheckbox'">Организация</MyCheckBox>
+        </div>
       </div>
-      <img class="window__img" src="../../assets/auth/light.svg" alt="">
-      <div class="window__buttons">
-        <MyButton class="blue-btn">Зарегистрироваться</MyButton>
-        <MyButton class="orange-btn button-login">Войти</MyButton>
+      <div class="login-window__inputs">
+        <MyInput :sub-title="'Логин:'" />
+        <MyInput :sub-title="'Пароль:'" type-input="password" />
+      </div>
+      <div class="login-window__btn">
+        <MyButton class=" orange-btn">Войти</MyButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import './authView.scss'
+import './authView.scss';
 
-import MyButton from '../../components/UI/MyButton/MyButton.vue'
+import MyButton from "../../components/UI/MyButton/MyButton.vue";
+import MyCheckBox from "../../components/UI/MyCheckBox/MyCheckBox";
+import MyInput from "../../components/UI/MyInput/MyInput.vue";
 
 export default {
   name: "AuthView",
   components: {
+    MyCheckBox,
+    MyInput,
     MyButton
   }
 }

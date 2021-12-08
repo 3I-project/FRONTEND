@@ -1,18 +1,24 @@
 <template>
-  <div class="auth-layout main-stage">
-    <AuthView />
+  <div class="auth-layout"
+  :class="currentBG">
+    <router-view />
   </div>
 </template>
 
 <script>
 import './authLayout.scss';
 
-import AuthView from "../../views/AuthView/AuthView.vue";
-
 export default {
   name: "authLayout",
-  components: {
-    AuthView
+  computed: {
+    currentBG() {
+      const background = {
+        '/main': 'main-stage',
+        '/auth': 'auth-stage'
+      }
+
+      return background[this.$route.path]
+    }
   }
 }
 </script>

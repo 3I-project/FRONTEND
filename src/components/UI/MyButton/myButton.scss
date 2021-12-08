@@ -5,9 +5,14 @@ button {
     padding: 13px 18px;
     border-radius: 5px;
     cursor: pointer;
+    transition: .3s all;
 
     &.orange-btn {
         background: #FF5018;
+
+        &:hover {
+            background: #ff370c;
+        }
     }
 
     &.blue-btn {

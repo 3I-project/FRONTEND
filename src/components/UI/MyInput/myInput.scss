@@ -1,0 +1,23 @@
+.myInput {
+
+  span {
+    color: #002C39;
+    font-size: 1.75rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  input {
+    background: rgba(0, 129, 249, 0.06);
+    border: 2px solid #0081F9;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    color: #000000;
+    padding: 0 21px;
+    height: 55px;
+    outline: none;
+    width: 100%;
+  }
+}
