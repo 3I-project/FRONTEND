@@ -14,7 +14,8 @@ export default {
     currentBG() {
       const background = {
         '/main': 'main-stage',
-        '/auth': 'auth-stage'
+        '/auth': 'auth-stage',
+        '/registration': 'reg-stage'
       }
 
       return background[this.$route.path]

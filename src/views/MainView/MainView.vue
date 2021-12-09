@@ -8,7 +8,7 @@
       </div>
       <img class="window__img" src="../../assets/auth/light.svg" alt="">
       <div class="window__buttons">
-        <MyButton class="blue-btn">Зарегистрироваться</MyButton>
+        <MyButton class="blue-btn" @click="$router.push('/registration')">Зарегистрироваться</MyButton>
         <MyButton class="orange-btn button-login" @click="$router.push('/auth')">Войти</MyButton>
       </div>
     </div>

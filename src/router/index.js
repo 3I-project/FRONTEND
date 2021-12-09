@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import MainView from "../views/MainView/MainView.vue";
 import AuthView from "../views/AuthView/AuthView";
+import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
 
 const routes = [
   {
@@ -25,6 +26,14 @@ const routes = [
     path: '/auth',
     name: 'AuthPage',
     component: AuthView,
+    meta: {
+      layout: 'authLayout'
+    }
+  },
+  {
+    path: '/registration',
+    name: 'RegPage',
+    component: RegistrationView,
     meta: {
       layout: 'authLayout'
     }

@@ -1,0 +1,64 @@
+.reg-window {
+  padding: 20px 0 20px 0;
+
+  .auth-window__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      margin: 0 34px;
+    }
+
+    span {
+      color: #0081F9;
+    }
+
+  }
+
+  .auth-window__text {
+    text-align: center;
+    margin-top: 28px;
+  }
+
+  &__checkboxes {
+    width: 80%;
+    margin: 28px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__img {
+    margin: 56px 0 30px 0;
+    text-align: center;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.reg-second {
+
+    .reg-second__form-input {
+      width: 90%;
+      margin: 13px auto 0 auto;
+
+      .myInput:not(:first-child) {
+        margin-top: 19px;
+      }
+    }
+
+    .reg-window__btn {
+      margin-top: 70px;
+    }
+  }
+
+  &.reg-four {
+    .reg-window__btn {
+      margin-top: 180px;
+    }
+  }
+}

@@ -11,11 +11,17 @@ button {
         background: #FF5018;
 
         &:hover {
+            transition: .3s all;
             background: #ff370c;
         }
     }
 
     &.blue-btn {
         background: #1890FF;
+
+        &:hover {
+            transition: .3s all;
+            background: #2187e8;
+        }
     }
 }

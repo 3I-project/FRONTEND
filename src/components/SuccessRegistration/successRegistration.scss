@@ -1,0 +1,28 @@
+.success-modal {
+  width: 861px;
+  height: 384px;
+  background: #FCFCFC;
+  box-shadow: 0 0 19px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 26px 0 19px 0;
+  box-sizing: border-box;
+
+  h1 {
+    text-align: center;
+    color: #00914F;
+    font-size: 1.875rem;
+  }
+
+  &__img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 25px 0;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

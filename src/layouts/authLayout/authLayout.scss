@@ -13,6 +13,11 @@
   }
 
   &.auth-stage {
-    background: url("../../assets/auth/key-bg.svg") top 0px left 0px no-repeat, $authBg;
+    background: url("../../assets/auth/key-bg.svg") top 0 left 0 no-repeat, $authBg;
+  }
+
+  &.reg-stage {
+    background: url("../../assets/auth/bg-left-light.svg") bottom -60px left -20px no-repeat,
+                url("../../assets/auth/bg-right-light.svg") right top no-repeat;
   }
 }

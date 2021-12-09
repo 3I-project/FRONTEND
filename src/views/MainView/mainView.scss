@@ -5,6 +5,15 @@
   background: #FCFCFC;
   box-shadow: 0 0 19px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
+  position: relative;
+
+  &__back {
+    position: absolute;
+    left: 15px;
+    right: 22px;
+    cursor: pointer;
+    width: max-content;
+  }
 
   &__title {
     color: #000000;
