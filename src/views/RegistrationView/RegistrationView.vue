@@ -103,7 +103,7 @@
       </h1>
       <div class="reg-second__form-input">
         <MyInput sub-title="Email" :type-input="'email'" />
-        <MyInput sub-title="Организация" />
+        <MyDropList :sub-title="'Выберите организацию'" :default-value="optionsList[0]" :options-list="optionsList" />
         <MyInput sub-title="Ваша должность" />
       </div>
       <div class="reg-window__btn">
@@ -143,6 +143,7 @@ import './registrationView.scss';
 
 import SuccessRegistration from "../../components/SuccessRegistration/SuccessRegistration";
 
+import MyDropList from "../../components/UI/MyDropList/MyDropList";
 import MyInput from "../../components/UI/MyInput/MyInput";
 import MyCheckBox from "../../components/UI/MyCheckBox/MyCheckBox";
 import MyButton from "../../components/UI/MyButton/MyButton";
@@ -150,6 +151,7 @@ import MyButton from "../../components/UI/MyButton/MyButton";
 export default {
   name: "RegistrationView",
   components: {
+    MyDropList,
     MyCheckBox,
     MyButton,
     MyInput,
@@ -157,7 +159,12 @@ export default {
   },
   data() {
     return {
-      stage: 1
+      stage: 1,
+      optionsList: [
+        {name: 'РТУ МИРЭА'},
+        {name: 'ЗАО ТЕОКРА'},
+        {name: 'ООО "ТАЛКА"'},
+      ]
     }
   }
 }
