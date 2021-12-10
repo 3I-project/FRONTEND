@@ -22,5 +22,8 @@ export default createStore({
   actions: {
   },
   modules: {
+  },
+  getters: {
+    tokens: (state) => state.tokens
   }
 })

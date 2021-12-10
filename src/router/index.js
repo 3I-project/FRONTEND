@@ -5,15 +5,9 @@ import MainView from "../views/MainView/MainView.vue";
 import AuthView from "../views/AuthView/AuthView";
 import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
 
+import store from '../store/index'
+
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomeView,
-    meta: {
-      layout: 'mainLayout'
-    }
-  },
   {
     path: '/main',
     name: 'MainPage',
@@ -37,12 +31,35 @@ const routes = [
     meta: {
       layout: 'authLayout'
     }
-  }
+  },
+  {
+    path: '/',
+    name: 'Home',
+    component: HomeView,
+    meta: {
+      layout: 'mainLayout'
+    }
+  },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((from, to, next) => {
+  const access = localStorage.getItem('access') || store.state.tokens.access;
+
+  if (access.length) {
+    if (from.path === '/main' || from.path === '/auth' || from.path === '/registration') {
+      next('/')
+    }
+    next()
+  } else if (from.path === '/main' || from.path === '/auth' || from.path === '/registration' ) {
+    next()
+  } else {
+    next('/main')
+  }
 })
 
 export default router
