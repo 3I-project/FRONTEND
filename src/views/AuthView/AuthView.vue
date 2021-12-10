@@ -13,16 +13,39 @@
       <div class="login-window__select">
         <p class="auth-window__text">Войти как:</p>
         <div class="auth-select-checkbox">
-          <MyCheckBox :checked="true" :elementID="'employer'" :check-box-group="'authCheckbox'">Сотрудник</MyCheckBox>
-          <MyCheckBox :elementID="'organizations'" :check-box-group="'authCheckbox'">Организация</MyCheckBox>
+          <MyCheckBox
+              :checked="true"
+              @change="e => { this.type = e.target.value }"
+              :elementID="'employee'"
+              :check-box-group="'authCheckbox'"
+          >
+            Сотрудник
+          </MyCheckBox>
+          <MyCheckBox
+              :elementID="'organizations'"
+              @change="e => { this.type = e.target.value }"
+              :check-box-group="'authCheckbox'"
+          >
+            Организация
+          </MyCheckBox>
         </div>
       </div>
       <div class="login-window__inputs">
-        <MyInput :sub-title="'Логин:'" />
-        <MyInput :sub-title="'Пароль:'" type-input="password" />
+        <MyInput
+            :value="login"
+            @input="e => { this.login = e.target.value }"
+            :sub-title="'Логин:'"
+        />
+        <MyInput
+            :value="password"
+            @input="e => { this.password = e.target.value }"
+            :sub-title="'Пароль:'"
+            :type-input="'password'"
+        />
       </div>
+      <span class="error" :class="{'error_visible': error.status}">{{ error.message }}</span>
       <div class="login-window__btn">
-        <MyButton class=" orange-btn">Войти</MyButton>
+        <MyButton @click="authorization" class="orange-btn">Войти</MyButton>
       </div>
     </div>
   </div>
@@ -37,10 +60,58 @@ import MyInput from "../../components/UI/MyInput/MyInput.vue";
 
 export default {
   name: "AuthView",
+  data () {
+    return {
+      type: 'employee',
+      login: null,
+      password: null,
+      error: {
+        status: false,
+        message: 'Поля не могут быть пустыми!'
+      }
+    }
+  },
   components: {
     MyCheckBox,
     MyInput,
     MyButton
+  },
+  methods: {
+    authorization() {
+      if (!this.login?.length || !this.password?.length) {
+        console.log(1)
+        this.error.status = true;
+        this.error.message = 'Поля не могут быть пустыми!'
+
+        return;
+      }
+      this.error.status = false;
+
+      const payload = {
+        type: this.type,
+        data: {
+          login: this.login,
+          password: this.password
+        }
+      }
+
+      fetch('http://localhost:5500/apiV1/auth/authorization', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+          .then(res => res.json())
+          .then(data => {
+            if (data.status) {
+              this.$store.commit('setTokens', data.tokens);
+            } else {
+              this.error.status = true;
+              this.error.message = data.msg;
+            }
+          })
+    }
   }
 }
 </script>

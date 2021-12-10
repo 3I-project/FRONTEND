@@ -1,7 +1,7 @@
 <template>
   <div class="myInput">
     <span v-show="subTitle.length">{{ subTitle }}</span>
-    <input :placeholder="placeholder" :type="typeInput">
+    <input :placeholder="placeholder" @input="$emit('input', $event)" :value="value"  :type="typeInput">
   </div>
 </template>
 
@@ -22,7 +22,10 @@ export default {
     subTitle: {
       type: String,
       default: ''
+    },
+    value: {
+      type: String,
     }
-  }
+  },
 }
 </script>

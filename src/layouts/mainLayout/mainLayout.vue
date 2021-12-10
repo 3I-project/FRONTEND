@@ -1,9 +1,19 @@
 <template>
-  <h1>Домашняя станица</h1>
+  <div class="wrapper">
+    <TopHeader />
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script>
+import TopHeader from "../../components/TopHeader/TopHeader";
+
 export default {
-  name: "mainLayout"
+  name: "mainLayout",
+  components: {
+    TopHeader
+  }
 }
 </script>

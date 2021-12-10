@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from '../views/Home.vue'
+import HomeView from '../views/HomeView/HomeView.vue'
 import MainView from "../views/MainView/MainView.vue";
 import AuthView from "../views/AuthView/AuthView";
 import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: HomeView,
     meta: {
       layout: 'mainLayout'
     }

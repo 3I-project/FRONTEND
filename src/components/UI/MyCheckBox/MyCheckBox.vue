@@ -1,6 +1,6 @@
 <template>
-  <label  class="myCheckbox">
-    <input :checked="checked" type="radio" :id="elementID" :name="checkBoxGroup" />
+  <label  class="myCheckbox" ref="input">
+    <input :checked="checked" @change="$emit('change', $event)" :value="elementID" type="radio" :id="elementID" :name="checkBoxGroup" />
     <slot />
   </label >
 </template>
@@ -21,6 +21,6 @@ export default {
       type: Boolean,
       default: false
     }
-  }
+  },
 }
 </script>
