@@ -35,8 +35,10 @@
             :value="login"
             @input="e => { this.login = e.target.value }"
             :sub-title="'Логин:'"
+            @keydown.enter="authorization"
         />
         <MyInput
+            @keydown.enter="authorization"
             :value="password"
             @input="e => { this.password = e.target.value }"
             :sub-title="'Пароль:'"
@@ -45,7 +47,7 @@
       </div>
       <span class="error" :class="{'error_visible': error.status}">{{ error.message }}</span>
       <div class="login-window__btn">
-        <MyButton @click="authorization" class="orange-btn">Войти</MyButton>
+        <MyButton @click="authorization" :is-loading="isLoadingResponse" class="orange-btn">Войти</MyButton>
       </div>
     </div>
   </div>
@@ -62,6 +64,7 @@ export default {
   name: "AuthView",
   data () {
     return {
+      isLoadingResponse: false,
       type: 'employee',
       login: null,
       password: null,
@@ -95,6 +98,8 @@ export default {
         }
       }
 
+      this.isLoadingResponse = true;
+
       fetch('http://localhost:5500/apiV1/auth/authorization', {
         method: 'POST',
         headers: {
@@ -106,10 +111,13 @@ export default {
           .then(data => {
             if (data.status) {
               this.$store.commit('setTokens', data.tokens);
+
+              this.$router.push('/')
             } else {
               this.error.status = true;
               this.error.message = data.msg;
             }
+            this.isLoadingResponse = false;
           })
     }
   }
