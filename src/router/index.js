@@ -47,15 +47,19 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((from, to, next) => {
+router.beforeEach(async (from, to, next) => {
   const access = localStorage.getItem('access') || store.state.tokens.access;
 
   if (access.length) {
     if (from.path === '/main' || from.path === '/auth' || from.path === '/registration') {
       next('/')
     }
+
+    await store.dispatch('getProfileInformation');
+
     next()
   } else if (from.path === '/main' || from.path === '/auth' || from.path === '/registration' ) {
+    console.log(2)
     next()
   } else {
     next('/main')

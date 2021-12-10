@@ -22,7 +22,7 @@
             Сотрудник
           </MyCheckBox>
           <MyCheckBox
-              :elementID="'organizations'"
+              :elementID="'organization'"
               @change="e => { this.type = e.target.value }"
               :check-box-group="'authCheckbox'"
           >
