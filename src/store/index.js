@@ -17,6 +17,13 @@ export default createStore({
 
       localStorage.setItem('access', state.tokens.access);
       cookies.set('refresh', state.tokens.refresh);
+    },
+    exit(state) {
+      state.tokens.access = '';
+      state.tokens.refresh = '';
+
+      localStorage.removeItem('access');
+      cookies.remove('refresh');
     }
   },
   actions: {

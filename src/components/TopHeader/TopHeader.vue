@@ -24,7 +24,7 @@
             </div>
             <div class="drop-menu" :class="{'open-menu': isOpenMenu}">
               <ul>
-                <li>Выход</li>
+                <li @click="exit">Выход</li>
               </ul>
             </div>
           </div>
@@ -42,6 +42,13 @@ export default {
   data() {
     return {
       isOpenMenu: false
+    }
+  },
+  methods: {
+    exit () {
+      this.$store.commit('exit');
+
+      this.$router.push('/main');
     }
   }
 }
