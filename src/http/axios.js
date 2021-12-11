@@ -6,5 +6,11 @@ const $api = axios.create({
     timeout: 1000,
 })
 
+$api.interceptors.response.use(config => {
+    return config
+}, (error) => {
+    return Promise.reject(error);
+})
+
 
 export default $api;
