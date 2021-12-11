@@ -1,13 +1,22 @@
 <template>
   <div class="page home-page">
-    <h1>Главная</h1>
+    <div class="ideas-wrapper">
+      <div class="wrapper-item" v-for="index in 10" :key="index">
+        <Idea />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import './homeView.scss'
 
+import Idea from "../../components/Idea/Idea";
+
 export default {
   name: 'HomeView',
+  components: {
+    Idea
+  }
 }
 </script>

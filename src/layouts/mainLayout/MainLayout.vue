@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import './mainLayout.scss';
+
 import TopHeader from "../../components/TopHeader/TopHeader";
 
 export default {
