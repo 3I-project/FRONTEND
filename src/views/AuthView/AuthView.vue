@@ -90,7 +90,7 @@ export default {
       }
       this.error.status = false;
 
-      const payload = {
+      const requestPayload = {
         type: this.type,
         data: {
           login: this.login,
@@ -100,25 +100,23 @@ export default {
 
       this.isLoadingResponse = true;
 
-      fetch('http://localhost:5500/apiV1/auth/authorization', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-          .then(res => res.json())
-          .then(data => {
-            if (data.status) {
-              this.$store.commit('setTokens', data.tokens);
+      this.$api.post('auth/authorization', requestPayload)
+      .then(response => {
+        const { data } = response
 
-              this.$router.push('/')
-            } else {
-              this.error.status = true;
-              this.error.message = data.msg;
-            }
-            this.isLoadingResponse = false;
-          })
+        this.$store.commit('setTokens', data.tokens);
+        this.$router.push('/')
+      })
+      .catch(error => {
+        const { response } = error
+
+        this.error.status = true;
+        this.error.message = response.data.msg;
+      })
+      .finally(() => {
+        this.isLoadingResponse = false;
+      })
+
     }
   }
 }
