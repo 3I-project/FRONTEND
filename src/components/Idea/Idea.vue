@@ -3,19 +3,21 @@
     <div class="idea__header">
       <div class="idea-author">
         <img src="../../../src/assets/idea/avatar.png" alt="">
-        <p>Андрей Николаевич предлагает:</p>
+        <p v-if="userProfile.id_employee === idea.id_employee">(Вы)</p>
+        <p>
+          {{ idea.author.first_name }} {{ idea.author.last_name }}
+          предлагает:
+        </p>
       </div>
       <div class="idea-date">
-        <p>Дата публикации: 10 сенября 2021года.</p>
+        <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pM }}.{{ publishDate.year }}.</p>
       </div>
     </div>
     <div class="idea__content">
-      <h3 class="idea-title">Приложение для заказа уборки снега</h3>
+      <h3 class="idea-title">{{ idea.title }}</h3>
       <div class="idea-content-body">
         <p class="idea-content-body__text">
-          Приложение для уборки снега – это сервис по запросу, который помогает решить проблему пользователя. Клиент заполняет запрос на уборку снега в приложении, указывает участок и другие параметры, а исполнитель убирает территорию.
-          Что значит on-demand? Эта бизнес-модель предполагает, что получение заказов происходит полностью онлайн, а выполнение работы – офлайн. Самый популярный пример такого приложения – Uber. С помощью него клиент получает не просто услуги, а вообще доступ к ним именно в тот момент, когда они нужны. Таким образом, если в традиционном варианте клиенту нужно сделать несколько звонков или прийти к исполнителю,
-          то модель on-demand сводит эту «боль» клиента к нулю. ...
+          {{ idea.message_text }}
         </p>
       </div>
     </div>
@@ -23,15 +25,15 @@
       <div class="idea-controllers">
         <div class="idea-controllers__item like-controller">
           <img src="../../../src/assets/idea/controllers/like.svg" alt="">
-          <p>10</p>
+          <p>0</p>
         </div>
         <div class="idea-controllers__item dislike-controller">
           <img src="../../../src/assets/idea/controllers/dislike.svg" alt="">
-          <p>5</p>
+          <p>0</p>
         </div>
         <div class="idea-controllers__item comment-controller">
           <img src="../../../src/assets/idea/controllers/comment.svg" alt="">
-          <p>5</p>
+          <p>0</p>
         </div>
       </div>
       <div class="idea-type">
@@ -44,7 +46,36 @@
 <script>
 import './idea.scss';
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "Idea",
+  props: {
+    idea: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(['userProfile']),
+    publishDate() {
+      const date = new Date(this.idea.created);
+
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDay();
+
+      const pM = (`0${month}`).substr(-2);
+      const pD = (`0${day}`).substr(-2);
+
+      return {
+        year,
+        pM,
+        pD
+      }
+    }
+  }
 }
 </script>

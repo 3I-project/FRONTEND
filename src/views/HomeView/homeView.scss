@@ -9,6 +9,14 @@
 
 .home-page {
 
+  .idea-loader {
+    width: 100%;
+    height: calc(100vh -  #{$headerHeight});
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .ideas-wrapper {
     padding: 0 20px;
     height: 100%;
