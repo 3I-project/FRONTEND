@@ -1,0 +1,74 @@
+@import "../../scss/variables";
+
+.filter-search {
+  height: $searchFilterHeight;
+  display: flex;
+
+  &__input {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    flex: 0.8;
+
+    input {
+      border-radius: 10px 0 0 10px;
+      border: none;
+      width: 100%;
+      outline: none;
+      padding: 0 28px;
+      font-size: 1.375rem;
+
+      &::placeholder {
+        color: rgba(149, 149, 149, 0.68);
+      }
+    }
+
+    button {
+      background: #1890FF;
+      width: 71px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border: none;
+      border-radius: 0 10px 10px 0;
+
+      &:hover {
+        transition: .3s all;
+        background: #0985f1;
+      }
+
+      svg {
+        display: block;
+      }
+    }
+  }
+
+  &__filter-btn {
+    height: 100%;
+    flex: 0.2;
+    margin-left: 10px;
+
+    .filter-button {
+      cursor: pointer;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      background: #1890FF;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 1.125rem;
+
+      &:hover {
+        transition: .3s all;
+        background: #0985f1;
+      }
+    }
+  }
+}

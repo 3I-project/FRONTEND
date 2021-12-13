@@ -3,9 +3,14 @@
     <div class="idea-loader" v-if="isLoading">
       <Loader :loader-text="'Идет загрузка идей ...'" />
     </div>
-    <div class="ideas-wrapper" v-else>
-      <div class="wrapper-item" v-for="idea in ideas" :key="idea.id_idea">
-        <Idea :idea="idea" />
+    <div class="home-page__wrapper" v-else>
+      <div class="search-wrapper">
+        <SearchFilter />
+      </div>
+      <div class="ideas-wrapper">
+        <div class="wrapper-item" v-for="idea in ideas" :key="idea.id_idea">
+          <Idea :idea="idea" />
+        </div>
       </div>
     </div>
   </div>
@@ -16,6 +21,7 @@ import './homeView.scss'
 
 import Idea from "../../components/Idea/Idea.vue";
 import Loader from "../../components/Loader/Loader.vue";
+import SearchFilter from "../../components/SearchFilter/SearchFilter.vue";
 
 export default {
   name: 'HomeView',
@@ -27,7 +33,8 @@ export default {
   },
   components: {
     Idea,
-    Loader
+    Loader,
+    SearchFilter
   },
   mounted() {
     this.isLoading = true;
