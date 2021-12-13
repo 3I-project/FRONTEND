@@ -59,7 +59,6 @@ router.beforeEach(async (from, to, next) => {
 
     next()
   } else if (from.path === '/main' || from.path === '/auth' || from.path === '/registration' ) {
-    console.log(2)
     next()
   } else {
     next('/main')

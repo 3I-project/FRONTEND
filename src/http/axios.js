@@ -9,6 +9,11 @@ const $api = axios.create({
 $api.interceptors.response.use(config => {
     return config
 }, (error) => {
+
+    if (error.response.status === 401) {
+        console.log('Access_token истек')
+    }
+
     return Promise.reject(error);
 })
 

@@ -82,7 +82,6 @@ export default {
   methods: {
     authorization() {
       if (!this.login?.length || !this.password?.length) {
-        console.log(1)
         this.error.status = true;
         this.error.message = 'Поля не могут быть пустыми!'
 

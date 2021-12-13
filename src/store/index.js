@@ -1,6 +1,8 @@
 import { createStore } from 'vuex'
 import { useCookies } from "vue3-cookies"
 
+import $api from "../http/axios";
+
 const { cookies  } = useCookies();
 
 export default createStore({
@@ -32,18 +34,16 @@ export default createStore({
   },
   actions: {
     getProfileInformation({ commit }) {
-      fetch('http://localhost:5500/apiV1/auth/me', {
-        method: 'GET',
+      $api.get('auth/me', {
         headers: {
           Authorization: localStorage.getItem('access')
         }
-      })
-          .then(res => res.json())
-          .then(data => {
-            if (data.status) {
-              commit('setProfileData', data.profile);
-            }
+      }).then(response => {
+            const { data } = response;
+
+            commit('setProfileData', data.profile);
           })
+          .catch(() => {})
     }
   },
   modules: {
