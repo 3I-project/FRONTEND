@@ -1,10 +1,12 @@
 <template>
   <div class="idea">
     <div class="idea__header">
-      <div class="idea-author">
+      <div
+          class="idea-author"
+      >
         <img src="../../../src/assets/idea/avatar.png" alt="">
-        <p v-if="userProfile.id_employee === idea.id_employee">(Вы)</p>
-        <p>
+        <p v-if="isMyIdea">Вы предлагаете: </p>
+        <p v-else>
           {{ idea.author.first_name }} {{ idea.author.last_name }}
           предлагает:
         </p>
@@ -60,6 +62,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userProfile']),
+    isMyIdea () {
+      return this.userProfile.id_employee === this.idea.id_employee;
+    },
     publishDate() {
       const date = new Date(this.idea.created);
 
