@@ -96,7 +96,13 @@
           margin-left: 55px;
         }
 
+        &:hover img {
+          transition: .4s all;
+          transform: scale(1.1);
+        }
+
         img {
+          transition: .4s all;
           cursor:  pointer;
           margin-right: 12px;
         }
