@@ -46,7 +46,7 @@ export default {
     Loader,
     SearchFilter
   },
-  mounted() {
+  created() {
     this.isLoading = true;
 
     this.$api.get('/idea/posts', {
@@ -64,6 +64,7 @@ export default {
         .finally(() => {
           this.isLoading = false
         })
-  }
+  },
+  mounted() {}
 }
 </script>
