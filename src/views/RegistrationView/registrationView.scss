@@ -1,6 +1,20 @@
 .reg-window {
   padding: 20px 0 20px 0;
 
+  .error {
+    color: #ff370c;
+    font-size: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 10px auto;
+    display: block;
+    visibility: hidden;
+
+    &.error_visible {
+      visibility: visible;
+    }
+  }
+
   .auth-window__title {
     display: flex;
     align-items: center;

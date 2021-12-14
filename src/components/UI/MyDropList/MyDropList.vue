@@ -48,6 +48,8 @@ export default {
     selectItem(item) {
       this.currentSelect = item;
       this.isOpenList = false;
+
+      this.$emit('select', item);
     }
   }
 }

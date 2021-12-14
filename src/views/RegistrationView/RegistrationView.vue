@@ -116,7 +116,12 @@
       </h1>
       <div class="reg-second__form-input">
         <MyInput sub-title="Email *" :type-input="'email'" />
-        <MyDropList :sub-title="'Выберите организацию'" :default-value="optionsList[0]" :options-list="optionsList" />
+        <MyDropList
+            :sub-title="'Выберите организацию'"
+            @select="org => employeeForm.id_organization = org.id_organization"
+            :default-value="optionsList[0]"
+            :options-list="optionsList"
+        />
         <MyInput sub-title="Логин" @input="e => { this.employeeForm.login = e.target.value }" />
       </div>
       <div class="reg-window__btn">
@@ -141,7 +146,10 @@
       </h1>
       <div class="reg-second__form-input">
         <MyInput sub-title="Пароль" :type-input="'password'" @input="e => { this.employeeForm.password = e.target.value }" />
-        <MyInput sub-title="Повторите пароль" :type-input="'password'" />
+        <MyInput sub-title="Повторите пароль" :type-input="'password'" @input="e => { this.repeatPassword = e.target.value }" />
+        <span class="error" :class="{'error_visible': errors.password.status}">
+          <p>{{ errors.password.msg }}</p>
+        </span>
       </div>
       <div class="reg-window__btn">
         <MyButton class="orange-btn" @click="registration">Завершить</MyButton>
@@ -179,18 +187,52 @@ export default {
         {name: 'ООО "ТАЛКА"'},
       ],
       registrationType: 'employee',
+      repeatPassword: '',
       employeeForm: {
         first_name: null,
         last_name: null,
         login: null,
-        password: null,
+        password: '',
         isLeader: false,
         id_organization: 3,
+      },
+      errors: {
+        password: {
+          status: false,
+          msg: 'Пароли не совпадают'
+        }
       }
     }
   },
+  computed: {},
   methods: {
+    matchPassword () {
+      if (!this.repeatPassword.length || !this.employeeForm.password.length) {
+        this.errors.password.status = true;
+
+        this.errors.password.msg = 'Поля не могу быть пустыми!'
+
+        return false;
+      } else if (this.employeeForm.password.length <= 5) {
+        this.errors.password.status = true;
+
+        this.errors.password.msg = 'Пароль должен содержать минимум 6 символов!'
+
+        return false;
+      } else if (this.repeatPassword !== this.employeeForm.password) {
+        this.errors.password.status = true;
+
+        this.errors.password.msg = 'Пароли не совпадают!'
+
+        return false;
+      }
+      this.errors.password.status = false;
+
+      return true;
+    },
     registration () {
+      if (!this.matchPassword()) return;
+
       const requestPayload = {
         type: this.registrationType,
         data: this.employeeForm
@@ -210,6 +252,19 @@ export default {
         console.log(error.response)
       })
     }
+  },
+  mounted() {
+    this.$api.get('/organization/all')
+    .then(response => {
+      const { data } = response;
+
+      console.log(data)
+
+      this.optionsList = data.payload.organization;
+    })
+    .catch(error => {
+      console.log(error.response)
+    })
   }
 }
 </script>
