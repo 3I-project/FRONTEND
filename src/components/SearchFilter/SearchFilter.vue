@@ -1,8 +1,8 @@
 <template>
   <div class="filter-search">
     <div class="filter-search__input">
-      <input type="text" placeholder="Введите текст ...">
-      <button>
+      <input type="text" v-model="filterString" @input="inputFilter" @keydown.enter="inputFilter" placeholder="Введите минимум 3 символа ...">
+      <button @click="inputFilter">
         <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <rect width="32" height="33" fill="url(#pattern0)"/>
           <defs>
@@ -26,6 +26,30 @@
 import './searchFilter.scss'
 
 export default {
-  name: "SearchFilter"
+  name: "SearchFilter",
+  data () {
+    return {
+      filterString: ''
+    }
+  },
+  methods: {
+    inputFilter () {
+      this.$api.get(`/idea/filter?q=${this.filterString}`, {
+        headers: {
+          Authorization: localStorage.getItem('access')
+        }
+      })
+          .then(response => {
+            const { data } = response
+
+            this.$emit('filteringData', data.filter);
+
+            console.log(data)
+          })
+          .catch(error => {
+            console.log(error.response)
+          })
+    }
+  }
 }
 </script>
