@@ -16,8 +16,21 @@
       </h1>
       <p class="auth-window__text">Как вы хотите зарегистрироваться?</p>
       <div class="reg-window__checkboxes">
-        <MyCheckBox :checked="true" :check-box-group="'regType'">Сотрудник организации</MyCheckBox>
-        <MyCheckBox :check-box-group="'regType'">Организация</MyCheckBox>
+        <MyCheckBox
+            :checked="true"
+            :check-box-group="'regType'"
+            @change="e => { this.registrationType = e.target.value }"
+            :elementID="'employee'"
+        >
+          Сотрудник организации
+        </MyCheckBox>
+        <MyCheckBox
+            :check-box-group="'regType'"
+            :elementID="'organization'"
+            @change="e => { this.registrationType = e.target.value }"
+        >
+          Организация
+        </MyCheckBox>
       </div>
       <div class="reg-window__img">
         <svg width="193" height="193" viewBox="0 0 193 193" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,9 +90,9 @@
         <span>Этап: {{ stage }} из 5</span>
       </h1>
       <div class="reg-second__form-input">
-        <MyInput sub-title="Фамилия" />
-        <MyInput sub-title="Имя" />
-        <MyInput sub-title="Отчетсво" />
+        <MyInput sub-title="Фамилия" @input="e => { this.employeeForm.last_name = e.target.value }" />
+        <MyInput sub-title="Имя" @input="e => { this.employeeForm.first_name = e.target.value }" />
+        <MyInput sub-title="Отчетсво *" />
       </div>
       <div class="reg-window__btn">
         <MyButton class="orange-btn" @click="stage = 3">Продолжить</MyButton>
@@ -102,9 +115,9 @@
         <span>Этап: {{ stage }} из 5</span>
       </h1>
       <div class="reg-second__form-input">
-        <MyInput sub-title="Email" :type-input="'email'" />
+        <MyInput sub-title="Email *" :type-input="'email'" />
         <MyDropList :sub-title="'Выберите организацию'" :default-value="optionsList[0]" :options-list="optionsList" />
-        <MyInput sub-title="Ваша должность" />
+        <MyInput sub-title="Логин" @input="e => { this.employeeForm.login = e.target.value }" />
       </div>
       <div class="reg-window__btn">
         <MyButton class="orange-btn" @click="stage = 4">Продолжить</MyButton>
@@ -127,11 +140,11 @@
         <span>Этап: {{ stage }} из 5</span>
       </h1>
       <div class="reg-second__form-input">
-        <MyInput sub-title="Пароль" :type-input="'password'" />
+        <MyInput sub-title="Пароль" :type-input="'password'" @input="e => { this.employeeForm.password = e.target.value }" />
         <MyInput sub-title="Повторите пароль" :type-input="'password'" />
       </div>
       <div class="reg-window__btn">
-        <MyButton class="orange-btn" @click="stage = 5">Завершить</MyButton>
+        <MyButton class="orange-btn" @click="registration">Завершить</MyButton>
       </div>
     </div>
   </div>
@@ -164,7 +177,38 @@ export default {
         {name: 'РТУ МИРЭА'},
         {name: 'ЗАО ТЕОКРА'},
         {name: 'ООО "ТАЛКА"'},
-      ]
+      ],
+      registrationType: 'employee',
+      employeeForm: {
+        first_name: null,
+        last_name: null,
+        login: null,
+        password: null,
+        isLeader: false,
+        id_organization: 3,
+      }
+    }
+  },
+  methods: {
+    registration () {
+      const requestPayload = {
+        type: this.registrationType,
+        data: this.employeeForm
+      }
+
+      this.$api.post('/auth/registration', requestPayload)
+      .then(response => {
+        const { data } = response;
+
+        if (data.status) {
+          this.stage = 5;
+        }
+
+        console.log(data)
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
     }
   }
 }
