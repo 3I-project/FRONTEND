@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HomeView from '../views/HomeView/HomeView.vue'
 import MainView from "../views/MainView/MainView.vue";
-import AuthView from "../views/AuthView/AuthView";
+import IdeaView from "../views/IdeaView/IdeaView.vue";
+import AuthView from "../views/AuthView/AuthView.vue";
 import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
 
 import store from '../store/index'
@@ -34,12 +35,20 @@ const routes = [
   },
   {
     path: '/',
-    name: 'Home',
+    name: 'HomePage',
     component: HomeView,
     meta: {
       layout: 'mainLayout'
     }
   },
+  {
+    path: '/idea/:id',
+    name: 'IdeaPage',
+    component: IdeaView,
+    meta: {
+      layout: 'mainLayout'
+    }
+  }
 ]
 
 const router = createRouter({

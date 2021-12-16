@@ -1,0 +1,28 @@
+@import "../../scss/variables";
+.idea-page {
+  padding: 17px 0 17px 0;
+  height: inherit;
+
+  .idea {
+    height: inherit;
+    max-height: none;
+  }
+
+  .idea-loader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - #{$headerHeight} - 17px);
+  }
+
+  .idea__content .idea-content-body {
+    overflow: inherit;
+    max-height: inherit;
+  }
+
+  .idea__content .idea-content-body__text {
+    -webkit-box-orient: inherit;
+    overflow: inherit;
+}
+}

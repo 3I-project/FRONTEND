@@ -15,7 +15,7 @@
         <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pM }}.{{ publishDate.year }}.</p>
       </div>
     </div>
-    <div class="idea__content">
+    <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea">
       <h3 class="idea-title">{{ idea.title }}</h3>
       <div class="idea-content-body">
         <p class="idea-content-body__text">
@@ -59,6 +59,10 @@ export default {
         return {}
       }
     },
+    setIdeaLink: {
+      type: Boolean,
+      default: false,
+    }
   },
   computed: {
     ...mapGetters(['userProfile']),
@@ -79,6 +83,13 @@ export default {
         year,
         pM,
         pD
+      }
+    }
+  },
+  methods: {
+    goToIdea () {
+      if (this.setIdeaLink) {
+        this.$router.push(`/idea/${this.idea.id_idea}`);
       }
     }
   }

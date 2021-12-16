@@ -9,7 +9,7 @@
       </div>
       <div class="ideas-wrapper" v-if="ideas.length">
         <div class="wrapper-item" v-for="idea in ideas" :key="idea.id_idea">
-          <Idea :idea="idea" />
+          <Idea :idea="idea" :set-idea-link="true" />
         </div>
       </div>
       <div class="empty-block" v-if="!ideas.length">

@@ -52,6 +52,10 @@
     margin-top: 19px;
     height: calc(100% - 60px - 25px - 20px - 15px - 37px);
 
+    &.idea-link {
+      cursor: pointer;
+    }
+
     .idea-title {
       color: #000000;
       font-size: 1.875rem;

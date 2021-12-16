@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header-wrapper">
       <nav>
-        <router-link to="#" class="link-active">Ленты событий</router-link>
+        <router-link to="/" :class="{'link-active': $route.path === '/'}">Ленты событий</router-link>
         <router-link to="#">Мои идеи</router-link>
         <router-link to="#">Голосования</router-link>
       </nav>

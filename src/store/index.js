@@ -8,7 +8,7 @@ const { cookies  } = useCookies();
 export default createStore({
   state: {
     tokens: {
-      access: '',
+      access: localStorage.getItem('access') || '',
       refresh: ''
     },
     userProfile: {}
