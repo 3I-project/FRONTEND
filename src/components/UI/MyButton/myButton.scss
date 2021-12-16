@@ -25,6 +25,15 @@
         }
     }
 
+    &.grey-btn {
+        background: #A3A3A3;
+
+        &:hover {
+            transition: .3s all;
+            background: #939393;
+        }
+    }
+
     svg {
         animation: rotate infinite 2s linear;
     }

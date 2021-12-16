@@ -11,7 +11,7 @@
         <router-link to="#" class="addButton">Подать идею</router-link>
         <div class="user-block">
           <div class="user-avatar">
-            <img src="https://avatars.dicebear.com/api/avataaars/Tank .svg" alt="">
+            <img src="https://avatars.dicebear.com/api/avataaars/Tank.svg" alt="">
           </div>
           <div class="user-menu">
             <div class="wrapper-user" @click="isOpenMenu = !isOpenMenu">
