@@ -12,7 +12,7 @@
         </p>
       </div>
       <div class="idea-date">
-        <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pM }}.{{ publishDate.year }}.</p>
+        <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pMn }}.{{ publishDate.year }}.</p>
       </div>
     </div>
     <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea">
@@ -50,6 +50,8 @@ import './idea.scss';
 
 import { mapGetters } from "vuex";
 
+import parseDate from "../../utility/time.utility";
+
 export default {
   name: "Idea",
   props: {
@@ -69,20 +71,13 @@ export default {
     isMyIdea () {
       return this.userProfile.id_employee === this.idea.id_employee;
     },
-    publishDate() {
-      const date = new Date(this.idea.created);
-
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const day = date.getDay();
-
-      const pM = (`0${month}`).substr(-2);
-      const pD = (`0${day}`).substr(-2);
+    publishDate () {
+      const { pD, pMn, year } = parseDate(this.idea.created);
 
       return {
-        year,
-        pM,
-        pD
+        pD,
+        pMn,
+        year
       }
     }
   },
