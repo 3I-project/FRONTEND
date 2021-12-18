@@ -48,11 +48,7 @@ export default {
   created() {
     this.isLoading = true;
 
-    this.$api.get('/idea/posts', {
-      headers: {
-        Authorization: localStorage.getItem('access')
-      }
-    })
+    this.$api.get('/idea/posts')
         .then(response => {
           const { data } = response;
 

@@ -113,11 +113,7 @@ export default {
         id_idea: this.$route.params.id
       }
 
-      await this.$api.post('/comments/create', requestPayload,{
-        headers: {
-          Authorization: localStorage.getItem('access')
-        }
-      })
+      await this.$api.post('/comments/create', requestPayload)
       .then(async response => {
         const { data } = response;
 
@@ -132,11 +128,7 @@ export default {
       })
     },
     async getIdeaComments() {
-      await this.$api.get(`/comments?id=${this.$route.params.id}`, {
-        headers: {
-          Authorization: localStorage.getItem('access')
-        }
-      })
+      await this.$api.get(`/comments?id=${this.$route.params.id}`)
       .then(response => {
         const { data } = response;
 
@@ -149,11 +141,7 @@ export default {
       })
     },
     async getIdeaData () {
-      await this.$api.get(`/idea/idea?id=${this.$route.params.id}`, {
-        headers: {
-          Authorization: localStorage.getItem('access')
-        }
-      })
+      await this.$api.get(`/idea/idea?id=${this.$route.params.id}`)
           .then(response => {
             const { data } = response;
 
