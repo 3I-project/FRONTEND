@@ -35,7 +35,7 @@
         </div>
         <div class="idea-controllers__item comment-controller">
           <img src="../../../src/assets/idea/controllers/comment.svg" alt="">
-          <p>0</p>
+          <p>{{ idea.commentsLength }}</p>
         </div>
       </div>
       <div class="idea-type">
