@@ -8,7 +8,7 @@
       </nav>
 
       <div class="header-right">
-        <router-link to="#" class="addButton">Подать идею</router-link>
+        <router-link to="/create" class="addButton">Подать идею</router-link>
         <div class="user-block">
           <div class="user-avatar">
             <img :src="`https://avatars.dicebear.com/api/avataaars/${ userProfile.first_name }.svg`" alt="">

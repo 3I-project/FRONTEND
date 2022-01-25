@@ -5,6 +5,7 @@ import MainView from "../views/MainView/MainView.vue";
 import IdeaView from "../views/IdeaView/IdeaView.vue";
 import AuthView from "../views/AuthView/AuthView.vue";
 import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
+import CreateIdeaView from "../views/CreateIdeaView/CreateIdeaView";
 
 import store from '../store/index'
 
@@ -45,6 +46,14 @@ const routes = [
     path: '/idea/:id',
     name: 'IdeaPage',
     component: IdeaView,
+    meta: {
+      layout: 'mainLayout'
+    }
+  },
+  {
+    path: '/create',
+    name: 'CreateIdeaPage',
+    component: CreateIdeaView,
     meta: {
       layout: 'mainLayout'
     }
