@@ -81,6 +81,7 @@ export default {
   },
   methods: {
     authorization() {
+      // Проверка на наличие данных в полях ввода
       if (!this.login?.length || !this.password?.length) {
         this.error.status = true;
         this.error.message = 'Поля не могут быть пустыми!'
@@ -88,7 +89,7 @@ export default {
         return;
       }
       this.error.status = false;
-
+      // Формируем обект body
       const requestPayload = {
         type: this.type,
         data: {
@@ -98,7 +99,7 @@ export default {
       }
 
       this.isLoadingResponse = true;
-
+      // Отправляем запрос на сервер
       this.$api.post('auth/authorization', requestPayload)
       .then(response => {
         const { data } = response
@@ -107,6 +108,7 @@ export default {
         this.$router.push('/')
       })
       .catch(error => {
+        // Обработка ошибок
         const { response } = error
 
         this.error.status = true;
@@ -115,7 +117,6 @@ export default {
       .finally(() => {
         this.isLoadingResponse = false;
       })
-
     }
   }
 }

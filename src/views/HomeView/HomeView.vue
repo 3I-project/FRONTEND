@@ -51,8 +51,7 @@ export default {
     this.$api.get('/idea/posts')
         .then(response => {
           const { data } = response;
-
-          this.ideas = data.ideas
+          this.ideas = data.payload.ideas
         })
         .catch(() => {
           console.log('Не удалось загрузить идеи')

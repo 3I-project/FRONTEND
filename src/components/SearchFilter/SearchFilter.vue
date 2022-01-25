@@ -42,7 +42,7 @@ export default {
           .then(response => {
             const { data } = response
 
-            this.$emit('filteringData', data.filter);
+            this.$emit('filteringData', data.payload.filter);
 
             console.log(data)
           })

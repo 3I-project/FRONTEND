@@ -2,9 +2,10 @@ import axios from 'axios';
 import { useCookies } from "vue3-cookies"
 
 const { cookies  } = useCookies();
+// https://server-3i.herokuapp.com/apiV1/
 
 const $api = axios.create({
-    baseURL: 'https://server-3i.herokuapp.com/apiV1/',
+    baseURL: 'http://localhost:5500/apiV1/',
     withCredentials: true,
 })
 
