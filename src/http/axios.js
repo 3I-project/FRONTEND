@@ -3,9 +3,10 @@ import { useCookies } from "vue3-cookies"
 
 const { cookies  } = useCookies();
 // https://server-3i.herokuapp.com/apiV1/
+// 'http://localhost:5500/apiV1/'
 
 const $api = axios.create({
-    baseURL: 'http://localhost:5500/apiV1/',
+    baseURL: 'https://server-3i.herokuapp.com/apiV1/',
     withCredentials: true,
 })
 
