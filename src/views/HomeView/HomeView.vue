@@ -4,7 +4,7 @@
       <Loader :loader-text="'Идет загрузка идей ...'" />
     </div>
     <div class="home-page__wrapper" v-else>
-      <div class="search-wrapper">
+      <div class="search-wrapper" v-if="ideas.length">
         <SearchFilter @filteringData="setFilteredData" />
       </div>
       <div class="ideas-wrapper" v-if="ideas.length">
