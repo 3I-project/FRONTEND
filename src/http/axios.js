@@ -6,7 +6,7 @@ const { cookies  } = useCookies();
 // 'http://localhost:5500/apiV1/'
 
 const $api = axios.create({
-    baseURL: 'https://server-3i.herokuapp.com/apiV1/',
+    baseURL: 'http://localhost:5500/apiV1/',
     withCredentials: true,
 })
 
@@ -38,7 +38,8 @@ $api.interceptors.response.use(config => {
                     }
                 })
         } catch (e) {
-            console.log('НЕ АВТОРИЗОВАН', e)
+            console.log('НЕ АВТОРИЗОВАН', e);
+            localStorage.removeItem('access');
         }
     }
     return Promise.reject(error);

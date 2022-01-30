@@ -18,9 +18,7 @@
     <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea">
       <h3 class="idea-title">{{ idea.title }}</h3>
       <div class="idea-content-body">
-        <p class="idea-content-body__text">
-          {{ idea.message_text }}
-        </p>
+        <QuillEditor v-model:content="ideaMessage" :readOnly="true" theme="bubble" toolbar="" />
       </div>
     </div>
     <div class="idea__footer">
@@ -47,8 +45,12 @@
 
 <script>
 import './idea.scss';
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
+import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 
 import { mapGetters } from "vuex";
+
+import { QuillEditor } from '@vueup/vue-quill'
 
 import parseDate from "../../utility/time.utility";
 
@@ -66,6 +68,9 @@ export default {
       default: false,
     }
   },
+  components: {
+    QuillEditor
+  },
   computed: {
     ...mapGetters(['userProfile']),
     isMyIdea () {
@@ -79,6 +84,9 @@ export default {
         pMn,
         year
       }
+    },
+    ideaMessage() {
+      return JSON.parse(this.idea.message_text)
     }
   },
   methods: {

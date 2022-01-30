@@ -30,11 +30,23 @@ export default {
   data() {
     return {
       title: '',
-      content: {"ops":[{"insert":"asdasdasdasdasdasd\n"}]}
+      content: {}
     }
   },
   methods: {
     saveIdea() {
+      this.$api.post('/idea/create', {
+        title: this.title,
+        content: JSON.stringify(this.content)
+      })
+      .then(response => {
+        const { data } = response
+
+        console.log(data);
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
       console.log(JSON.stringify(this.content))
     }
   }

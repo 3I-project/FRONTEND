@@ -73,8 +73,6 @@ router.beforeEach(async (from, to, next) => {
       next('/')
     }
 
-    await store.dispatch('getProfileInformation');
-
     next()
   } else if (from.path === '/main' || from.path === '/auth' || from.path === '/registration' ) {
     next()

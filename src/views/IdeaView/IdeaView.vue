@@ -146,6 +146,7 @@ export default {
             const { data } = response;
 
             this.ideaData = data.idea;
+            // this.ideaData.message_text = JSON.parse(this.ideaData.message_text);
           })
           .catch(error => {
             console.log(error.response)
