@@ -6,7 +6,9 @@
       </div>
       <div class="edit-block__content">
         <QuillEditor v-model:content="content" :readOnly="false" theme="snow" toolbar="full" />
-        <MyButton @click="saveIdea" class="orange-btn"> Сохранить</MyButton>
+        <div class="edit-block__btn">
+          <MyButton @click="saveIdea" :is-loading="isLoading" class="orange-btn">Опубликовать</MyButton>
+        </div>
       </div>
     </div>
   </div>
@@ -30,11 +32,14 @@ export default {
   data() {
     return {
       title: '',
-      content: {}
+      content: {},
+      isLoading: false
     }
   },
   methods: {
     saveIdea() {
+      this.isLoading = true;
+
       this.$api.post('/idea/create', {
         title: this.title,
         content: JSON.stringify(this.content)
@@ -43,11 +48,16 @@ export default {
         const { data } = response
 
         console.log(data);
+
+        if (data.status) {
+          this.$router.push('/')
+        }
       })
       .catch(error => {
         console.log(error.response)
       })
-      console.log(JSON.stringify(this.content))
+
+      this.isLoading = false;
     }
   }
 }

@@ -27,5 +27,16 @@
     &__content {
       height: 600px;
     }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin-top: 20px;
+
+      .myButton {
+        width: 196px;
+      }
+    }
   }
 }

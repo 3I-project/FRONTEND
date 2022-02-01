@@ -90,12 +90,13 @@
         <span>Этап: {{ stage }} из 5</span>
       </h1>
       <div class="reg-second__form-input">
-        <MyInput sub-title="Фамилия" @input="e => { this.employeeForm.last_name = e.target.value }" />
-        <MyInput sub-title="Имя" @input="e => { this.employeeForm.first_name = e.target.value }" />
-        <MyInput sub-title="Отчетсво *" />
+        <MyInput sub-title="Фамилия*" @input="e => { this.employeeForm.last_name = e.target.value }" />
+        <MyInput sub-title="Имя*" @input="e => { this.employeeForm.first_name = e.target.value }" />
+        <MyInput sub-title="Отчетсво" />
       </div>
+      <span class="error" :class="{'error_visible': errors.first_stage.status}">{{ errors.first_stage.msg }}</span>
       <div class="reg-window__btn">
-        <MyButton class="orange-btn" @click="stage = 3">Продолжить</MyButton>
+        <MyButton class="orange-btn" @click="validFirstStage">Продолжить</MyButton>
       </div>
     </div>
   </div>
@@ -115,17 +116,20 @@
         <span>Этап: {{ stage }} из 5</span>
       </h1>
       <div class="reg-second__form-input">
-        <MyInput sub-title="Email *" :type-input="'email'" />
+        <MyInput sub-title="Email*" :type-input="'email'" @input="e => { this.employeeForm.email = e.target.value }" />
         <MyDropList
             :sub-title="'Выберите организацию'"
             @select="org => employeeForm.id_organization = org.id_organization"
             :default-value="optionsList[0]"
             :options-list="optionsList"
         />
-        <MyInput sub-title="Логин" @input="e => { this.employeeForm.login = e.target.value }" />
+        <MyInput sub-title="Логин*" @input="e => { this.employeeForm.login = e.target.value }" />
       </div>
+      <span class="error" :class="{'error_visible': errors.second_stage.status}">
+          <p>{{ errors.second_stage.msg }}</p>
+        </span>
       <div class="reg-window__btn">
-        <MyButton class="orange-btn" @click="stage = 4">Продолжить</MyButton>
+        <MyButton class="orange-btn" @click="validSecondStage">Продолжить</MyButton>
       </div>
     </div>
   </div>
@@ -192,11 +196,20 @@ export default {
         first_name: null,
         last_name: null,
         login: null,
+        email: null,
         password: '',
         isLeader: false,
         id_organization: 3,
       },
       errors: {
+        first_stage: {
+          status: false,
+          msg: 'Укажите своё имя',
+        },
+        second_stage: {
+          status: false,
+          msg: 'Введите Email',
+        },
         password: {
           status: false,
           msg: 'Пароли не совпадают'
@@ -206,6 +219,42 @@ export default {
   },
   computed: {},
   methods: {
+    validFirstStage() {
+      if (!this.employeeForm.last_name?.length) {
+        this.errors.first_stage.status = true;
+        this.errors.first_stage.msg = 'Укажите свою фамилию';
+
+        return;
+      }
+
+      if (!this.employeeForm.first_name?.length) {
+        this.errors.first_stage.status = true;
+        this.errors.first_stage.msg = 'Укажите своё имя';
+
+        return;
+      }
+
+      this.errors.first_stage.status = false;
+      this.stage = 3
+    },
+    validSecondStage() {
+      if (!this.employeeForm.email?.length) {
+        this.errors.second_stage.status = true;
+        this.errors.second_stage.msg = 'Укажите свой Email';
+
+        return;
+      }
+
+      if (!this.employeeForm.login?.length) {
+        this.errors.second_stage.status = true;
+        this.errors.second_stage.msg = 'Укажите логин';
+
+        return;
+      }
+
+      this.errors.second_stage.status = false;
+      this.stage = 4
+    },
     matchPassword () {
       if (!this.repeatPassword.length || !this.employeeForm.password.length) {
         this.errors.password.status = true;
