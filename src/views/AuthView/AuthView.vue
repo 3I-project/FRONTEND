@@ -80,7 +80,7 @@ export default {
     MyButton
   },
   methods: {
-    authorization() {
+    async authorization() {
       // Проверка на наличие данных в полях ввода
       if (!this.login?.length || !this.password?.length) {
         this.error.status = true;
