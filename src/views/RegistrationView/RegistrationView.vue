@@ -100,7 +100,7 @@
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-second reg-third" v-if="stage === 3">
+  <div class="auth-window reg-window reg-third" v-if="stage === 3">
     <div class="auth-window__back" @click="stage = 2">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -133,7 +133,7 @@
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-second reg-four" v-if="stage === 4">
+  <div class="auth-window reg-window reg-four" v-if="stage === 4">
     <div class="auth-window__back" @click="stage = 3">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -156,11 +156,54 @@
         </span>
       </div>
       <div class="reg-window__btn">
-        <MyButton class="orange-btn" @click="registration">Завершить</MyButton>
+        <MyButton class="orange-btn" @click="stage = 5">Продолжить</MyButton>
       </div>
     </div>
   </div>
-  <SuccessRegistration v-if="stage === 5" />
+  <div class="auth-window reg-window reg-five" v-if="stage === 5">
+    <div class="auth-window__back" @click="stage = 4">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
+        <path d="M28.5831 17.563C24.9106 17.563 21.2381 17.563 17.5659 17.563C18.5016 16.6272 19.4373 15.6915 20.3731 14.7554C22.5316 12.5969 19.1689 9.25908 17.0049 11.4234C14.7239 13.7044 12.4431 15.9855 10.1621 18.2666C9.24653 19.1821 9.27119 20.7078 10.18 21.6166C12.4611 23.8974 14.7419 26.1784 17.0229 28.4592C19.1815 30.6177 22.5193 27.255 20.355 25.0911C19.4249 24.161 18.4949 23.231 17.5648 22.3013C21.2263 22.3013 24.8877 22.3013 28.5489 22.3013C31.6079 22.3013 31.635 17.563 28.5831 17.563Z" fill="white"/>
+      </svg>
+    </div>
+    <div class="auth__wrapper">
+      <h1 class="auth-window__title">
+        Регистрация
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.4585 2.21049C18.1949 1.95358 17.773 1.95896 17.5161 2.22248C17.396 2.34563 17.3283 2.51038 17.3269 2.68231V10.0129H0.66644C0.298389 10.0129 0 10.3113 0 10.6793V21.3421C0 21.7101 0.298389 22.0085 0.66644 22.0085H17.3269V29.3111C17.3263 29.6792 17.6241 29.9781 17.9922 29.9787C18.1696 29.9791 18.3399 29.9086 18.4652 29.7829L31.8042 16.4545C32.0648 16.1946 32.0653 15.7726 31.8054 15.5121C31.805 15.5117 31.8046 15.5112 31.8042 15.5109L18.4585 2.21049Z" fill="#2196F3"/>
+        </svg>
+        <span>Этап: {{ stage }} из 5</span>
+      </h1>
+      <div class="avatar">
+        <p class="avatar-title">Загрузите своё фото</p>
+        <div class="avatar-block">
+          <label v-if="!isUploadAvatar" for="user-avatar" class="avatar-block__none">
+            <input type="file" @change="uploadAvatar" ref="uploadImage" id="user-avatar" accept=".png, .jpg, .jpeg">
+            <svg width="229" height="229" viewBox="0 0 229 229" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_1_856)">
+                <path d="M112.868 110.31C128.023 110.31 141.145 104.875 151.868 94.1512C162.59 83.429 168.025 70.3098 168.025 55.1534C168.025 40.0023 162.59 26.8814 151.866 16.1557C141.142 5.43533 128.021 0 112.868 0C97.7118 0 84.5925 5.43533 73.8704 16.1575C63.1483 26.8796 57.7112 40.0006 57.7112 55.1534C57.7112 70.3098 63.1483 83.4308 73.8721 94.1529C84.596 104.873 97.717 110.31 112.868 110.31Z" fill="white"/>
+                <path d="M209.378 176.09C209.069 171.628 208.443 166.76 207.523 161.62C206.593 156.442 205.396 151.546 203.964 147.072C202.484 142.447 200.471 137.88 197.983 133.504C195.401 128.961 192.368 125.006 188.964 121.751C185.406 118.345 181.048 115.608 176.01 113.611C170.988 111.624 165.424 110.618 159.471 110.618C157.133 110.618 154.873 111.577 150.507 114.42C147.82 116.172 144.676 118.199 141.168 120.44C138.168 122.352 134.105 124.142 129.085 125.764C124.188 127.348 119.216 128.152 114.308 128.152C109.4 128.152 104.43 127.348 99.5271 125.764C94.5128 124.144 90.449 122.353 87.4527 120.442C83.9776 118.221 80.8328 116.195 78.1055 114.418C73.7447 111.575 71.4821 110.616 69.1445 110.616C63.1902 110.616 57.6274 111.624 52.6079 113.613C47.5726 115.606 43.2135 118.344 39.6511 121.752C36.2495 125.009 33.2147 128.963 30.6359 133.504C28.1498 137.88 26.1371 142.445 24.6555 147.073C23.2246 151.548 22.0278 156.442 21.0984 161.62C20.1776 166.753 19.5521 171.622 19.2429 176.095C18.9389 180.477 18.7852 185.024 18.7852 189.618C18.7852 201.572 22.5852 211.249 30.0786 218.386C37.4795 225.428 47.2721 229.001 59.1806 229.001H169.446C181.354 229.001 191.143 225.43 198.546 218.386C206.041 211.254 209.841 201.575 209.841 189.616C209.839 185.002 209.684 180.451 209.378 176.09Z" fill="white"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_1_856">
+                  <rect width="229" height="229" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </label>
+          <div v-show="isUploadAvatar" class="avatar-block__preview">
+            <img ref="previewAvatar" src="" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="reg-window__btn">
+        <MyButton class="grey-btn" @click="registration">Пропустить</MyButton>
+        <MyButton class="orange-btn" @click="registration">Продолжить</MyButton>
+      </div>
+    </div>
+  </div>
+  <SuccessRegistration v-if="stage === 6" />
 </template>
 
 <script>
@@ -191,6 +234,7 @@ export default {
         {name: 'ООО "ТАЛКА"'},
       ],
       registrationType: 'employee',
+      isUploadAvatar: false,
       repeatPassword: '',
       employeeForm: {
         first_name: null,
@@ -219,6 +263,17 @@ export default {
   },
   computed: {},
   methods: {
+    uploadAvatar() {
+      const fileReader = new FileReader();
+      const file = this.$refs.uploadImage.files[0];
+
+      fileReader.onload = (e) => {
+        this.isUploadAvatar = true;
+        this.$refs.previewAvatar.src = e.target.result;
+      }
+
+      fileReader.readAsDataURL(file);
+    },
     validFirstStage() {
       if (!this.employeeForm.last_name?.length) {
         this.errors.first_stage.status = true;
