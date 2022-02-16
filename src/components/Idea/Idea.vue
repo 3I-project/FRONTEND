@@ -15,7 +15,7 @@
         <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pMn }}.{{ publishDate.year }}.</p>
       </div>
     </div>
-    <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea">
+    <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea($event)">
       <h3 class="idea-title">{{ idea.title }}</h3>
       <div class="idea-content-body">
         <QuillEditor v-model:content="ideaMessage" :readOnly="true" theme="bubble" toolbar="" />
@@ -90,8 +90,9 @@ export default {
     }
   },
   methods: {
-    goToIdea () {
-      if (this.setIdeaLink) {
+    goToIdea (event) {
+      const ideaBody = event.target.closest('.idea-content-body');
+      if (this.setIdeaLink && !ideaBody) {
         this.$router.push(`/idea/${this.idea.id_idea}`);
       }
     }
