@@ -52,7 +52,11 @@ export default {
     avatarUrl () {
       const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
 
-      return `${baseURL}/avatar/${ this.userProfile.avatarUrl }`
+      if (this.userProfile.avatarUrl) {
+        return `${baseURL}/avatar/${ this.userProfile.avatarUrl }`
+      }
+
+      return require('../../assets/default-avatar.jpg')
     }
   },
   methods: {

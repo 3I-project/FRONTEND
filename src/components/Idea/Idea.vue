@@ -4,7 +4,7 @@
       <div
           class="idea-author"
       >
-        <img src="../../../src/assets/idea/avatar.png" alt="">
+        <img :src="avatarUrl" alt="">
         <p v-if="isMyIdea">Вы предлагаете: </p>
         <p v-else>
           {{ idea.author.first_name }} {{ idea.author.last_name }}
@@ -87,6 +87,15 @@ export default {
     },
     ideaMessage() {
       return JSON.parse(this.idea.message_text)
+    },
+    avatarUrl() {
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+
+      if (this.idea.author.avatarHash) {
+        return `${baseURL}/avatar/${ this.idea.author.avatarHash }`
+      }
+
+      return require('../../assets/default-avatar.jpg')
     }
   },
   methods: {
