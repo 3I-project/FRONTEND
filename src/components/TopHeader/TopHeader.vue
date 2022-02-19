@@ -11,7 +11,7 @@
         <router-link to="/create" class="addButton">Подать идею</router-link>
         <div class="user-block">
           <div class="user-avatar">
-            <img :src="`https://avatars.dicebear.com/api/avataaars/${ userProfile.first_name }.svg`" alt="">
+            <img :src="avatarUrl" alt="">
           </div>
           <div class="user-menu">
             <div class="wrapper-user" @click="isOpenMenu = !isOpenMenu">
@@ -48,12 +48,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userProfile'])
+    ...mapGetters(['userProfile']),
+    avatarUrl () {
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+
+      return `${baseURL}/avatar/${ this.userProfile.avatarUrl }`
+    }
   },
   methods: {
     exit () {
       this.$store.commit('exit');
-
       this.$router.push('/main');
     }
   }

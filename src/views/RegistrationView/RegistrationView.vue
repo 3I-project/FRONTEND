@@ -178,7 +178,7 @@
       <div class="avatar">
         <p class="avatar-title">Загрузите своё фото</p>
         <div class="avatar-block">
-          <label v-if="!isUploadAvatar" for="user-avatar" class="avatar-block__none">
+          <label v-show="!isUploadAvatar" for="user-avatar" class="avatar-block__none">
             <input type="file" @change="uploadAvatar" ref="uploadImage" id="user-avatar" accept=".png, .jpg, .jpeg">
             <svg width="229" height="229" viewBox="0 0 229 229" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g clip-path="url(#clip0_1_856)">
@@ -199,7 +199,7 @@
       </div>
       <div class="reg-window__btn">
         <MyButton class="grey-btn" @click="registration">Пропустить</MyButton>
-        <MyButton class="orange-btn" @click="registration">Продолжить</MyButton>
+        <MyButton class="orange-btn" @click="sendUploadAvatar">Продолжить</MyButton>
       </div>
     </div>
   </div>
@@ -237,6 +237,7 @@ export default {
       isUploadAvatar: false,
       repeatPassword: '',
       employeeForm: {
+        avatarUrl: null,
         first_name: null,
         last_name: null,
         login: null,
@@ -263,6 +264,25 @@ export default {
   },
   computed: {},
   methods: {
+    sendUploadAvatar() {
+      const file = this.$refs.uploadImage.files[0];
+      const formData = new FormData()
+      formData.append('avatar', file);
+
+      this.$api.post('/files/avatar', formData)
+      .then(response => {
+        const { data } = response
+
+        if (data.status) {
+          console.log(data)
+          this.employeeForm.avatarUrl = data.avatarUrl
+          this.registration()
+        }
+      })
+      .catch(error => {
+        console.log(error.response)
+      })
+    },
     uploadAvatar() {
       const fileReader = new FileReader();
       const file = this.$refs.uploadImage.files[0];
@@ -342,12 +362,14 @@ export default {
         data: this.employeeForm
       }
 
+      console.log(requestPayload);
+
       this.$api.post('/auth/registration', requestPayload)
       .then(response => {
         const { data } = response;
 
         if (data.status) {
-          this.stage = 5;
+          this.stage = 6;
         }
 
         console.log(data)
@@ -361,8 +383,6 @@ export default {
     this.$api.get('/organization/all')
     .then(response => {
       const { data } = response;
-
-      console.log(data)
 
       this.optionsList = data.payload.organization;
     })
