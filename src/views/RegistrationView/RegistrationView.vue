@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-window reg-window reg-first" v-if="stage === 1">
+  <div class="auth-window reg-window reg-first" v-show="stage === 1">
     <div class="auth-window__back" @click="$router.back()">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -74,7 +74,7 @@
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-second" v-if="stage === 2">
+  <div class="auth-window reg-window reg-second" v-show="stage === 2">
     <div class="auth-window__back" @click="stage = 1">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -100,7 +100,7 @@
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-third" v-if="stage === 3">
+  <div class="auth-window reg-window reg-third" v-show="stage === 3">
     <div class="auth-window__back" @click="stage = 2">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -133,7 +133,7 @@
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-four" v-if="stage === 4">
+  <div class="auth-window reg-window reg-four" v-show="stage === 4">
     <div class="auth-window__back" @click="stage = 3">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -156,11 +156,11 @@
         </span>
       </div>
       <div class="reg-window__btn">
-        <MyButton class="orange-btn" @click="stage = 5">Продолжить</MyButton>
+        <MyButton class="orange-btn" @click="setPassword">Продолжить</MyButton>
       </div>
     </div>
   </div>
-  <div class="auth-window reg-window reg-five" v-if="stage === 5">
+  <div class="auth-window reg-window reg-five" v-show="stage === 5">
     <div class="auth-window__back" @click="stage = 4">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#19BE87"/>
@@ -264,6 +264,24 @@ export default {
   },
   computed: {},
   methods: {
+    async checkEmail() {
+      const { data } = await this.$api.post('/auth/check-mail', {
+        type: this.registrationType,
+        email: this.employeeForm.email
+      })
+
+      return data.payload.isFree
+    },
+    async checkLogin() {
+      const { data } = await this.$api.post('/auth/check-login', {
+        type: this.registrationType,
+        login: this.employeeForm.login
+      })
+
+      console.log(data)
+
+      return data.payload.isFree
+    },
     sendUploadAvatar() {
       const file = this.$refs.uploadImage.files[0];
       const formData = new FormData()
@@ -312,7 +330,9 @@ export default {
       this.errors.first_stage.status = false;
       this.stage = 3
     },
-    validSecondStage() {
+    async validSecondStage() {
+      this.errors.second_stage.status = false;
+
       if (!this.employeeForm.email?.length) {
         this.errors.second_stage.status = true;
         this.errors.second_stage.msg = 'Укажите свой Email';
@@ -327,8 +347,33 @@ export default {
         return;
       }
 
+      const isEmailFree = await this.checkEmail();
+
+      if (!isEmailFree) {
+        this.errors.second_stage.status = true;
+        this.errors.second_stage.msg = 'Такой Email уже используется';
+
+        return;
+      }
+
+      const isLoginFree = await this.checkLogin();
+
+      if (!isLoginFree) {
+        this.errors.second_stage.status = true;
+        this.errors.second_stage.msg = 'Такой логин уже используется';
+
+        return;
+      }
+
       this.errors.second_stage.status = false;
       this.stage = 4
+    },
+    setPassword() {
+      const isValidPassword = this.matchPassword()
+
+      if (isValidPassword) {
+        this.stage = 5
+      }
     },
     matchPassword () {
       if (!this.repeatPassword.length || !this.employeeForm.password.length) {

@@ -19,6 +19,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 30px;
 
     svg {
       margin: 0 34px;
@@ -70,13 +71,13 @@
     }
 
     .reg-window__btn {
-      margin-top: 70px;
+      margin-top: 40px;
     }
   }
 
   &.reg-four {
     .reg-window__btn {
-      margin-top: 180px;
+      margin-top: 150px;
     }
   }
 
