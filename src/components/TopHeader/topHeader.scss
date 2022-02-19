@@ -106,6 +106,19 @@
           display: flex;
           align-items: center;
           cursor: pointer;
+
+          &__organization {
+            color: rgba(0, 0, 0, 0.63);
+            font-size: 1rem;
+            margin-top: 5px;
+            display: block;
+          }
+
+          .user {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+          }
         }
 
         p {
@@ -116,7 +129,7 @@
         }
 
         .drop-arrow {
-          margin-left: 10px;
+          margin-left: 20px;
           transition: .3s all;
           transform: rotate(0deg);
 
@@ -128,7 +141,7 @@
 
         .drop-menu {
           position: absolute;
-          top: 230%;
+          top: 144%;
           left: 0;
           right: 0;
           background-color: #efefef;
