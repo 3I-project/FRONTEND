@@ -33,8 +33,8 @@ export default createStore({
     }
   },
   actions: {
-    getProfileInformation({ commit }) {
-      $api.get('auth/me', {
+    async getProfileInformation({ commit }) {
+      await $api.get('auth/me', {
         headers: {
           Authorization: localStorage.getItem('access')
         }

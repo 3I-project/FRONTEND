@@ -5,7 +5,7 @@
     </div>
     <template v-else>
       <div class="idea-wrapper">
-        <Idea :idea="ideaData" />
+        <Idea :idea="ideaData[0]" />
       </div>
       <div class="idea-vote">
         <VoteController />
@@ -15,7 +15,7 @@
           <p>Оставить комментарий</p>
           <textarea v-model="commentInput" @keydown.enter="sendComment" placeholder="Написать комментарий..."></textarea>
           <MyButton class="comment-input blue-btn" @click="sendComment">Отправить</MyButton>
-          <span>{{ comments.length }} комментария</span>
+          <span>{{ comments.length || 0 }} комментария</span>
         </div>
         <div class="comment-line"></div>
         <div class="comments-wrapper" v-if="comments.length">

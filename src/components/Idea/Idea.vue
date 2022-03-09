@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="idea-type">
-        <p>Тип: бизнес идея</p>
+        <p>Тип: {{ idea.type }}</p>
       </div>
     </div>
   </div>

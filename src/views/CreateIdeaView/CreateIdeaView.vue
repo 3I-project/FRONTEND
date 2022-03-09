@@ -1,5 +1,5 @@
 <template>
-  <div class="page edit-page">
+  <div class="page edit-page" v-if="isDataLoaded">
     <div class="edit-block">
       <div class="edit-block__header">
         <input v-model="title" type="text" placeholder="ВВЕДИТЕ ЗАГОЛОВОК">
@@ -13,7 +13,7 @@
               :sub-title="'Выберите тип идеи'"
               :optionsList="ideaTypeList"
               :default-value="ideaTypeList[0]"
-              @select="(item) => this.selectedIdeaType = item.name"
+              @select="(item) => this.selectedIdeaType = item.type_id"
           />
         </div>
         <div class="edit-block__btn">
@@ -48,13 +48,8 @@ export default {
       content: {},
       isLoading: false,
       selectedIdeaType: '',
-      ideaTypeList: [
-        {name: 'Бизнес идея'},
-        {name: 'Маркетинговая идея'},
-        {name: 'Рекламная идея'},
-        {name: 'Технологическая идея'},
-        {name: 'Идея нововведения'}
-      ]
+      ideaTypeList: {},
+      isDataLoaded: false,
     }
   },
   computed: {
@@ -63,6 +58,14 @@ export default {
     }
   },
   methods: {
+    async getTypeList () {
+      await this.$api.get('/idea/types-list')
+      .then(response => {
+        const { data } = response
+
+        this.ideaTypeList = data.payload
+      })
+    },
     saveIdea() {
       this.isLoading = true;
 
@@ -75,7 +78,7 @@ export default {
       this.$api.post('/idea/create', {
         title: this.title,
         content: JSON.stringify(this.content),
-        selectedIdeaType: this.selectedIdeaType
+        type_id: this.selectedIdeaType,
       })
           .then(response => {
             const {data} = response
@@ -92,6 +95,13 @@ export default {
 
       this.isLoading = false;
     }
+  },
+  async mounted() {
+    this.isDataLoaded = false
+
+    await this.getTypeList()
+
+    this.isDataLoaded = true
   }
 }
 </script>
