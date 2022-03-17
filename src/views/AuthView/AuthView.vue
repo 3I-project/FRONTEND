@@ -15,6 +15,7 @@
         <div class="auth-select-checkbox">
           <MyCheckBox
               :checked="true"
+              :value="'employee'"
               @change="e => { this.type = e.target.value }"
               :elementID="'employee'"
               :check-box-group="'authCheckbox'"
@@ -22,6 +23,7 @@
             Сотрудник
           </MyCheckBox>
           <MyCheckBox
+              :value="'organization'"
               :elementID="'organization'"
               @change="e => { this.type = e.target.value }"
               :check-box-group="'authCheckbox'"

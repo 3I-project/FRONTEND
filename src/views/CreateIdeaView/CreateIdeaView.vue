@@ -16,6 +16,26 @@
               @select="(item) => this.selectedIdeaType = item.type_id"
           />
         </div>
+        <div class="edit-block__set-comment">
+          <p>Отключить комментарии к идеи:</p>
+          <MyCheckBox
+              :elementID="'Нет'"
+              :value="false"
+              @change="e => { this.hiddenComments = JSON.parse(e.target.value) }"
+              :check-box-group="'setCommentsCheckBox'"
+              :checked="true"
+          >
+            Нет
+          </MyCheckBox>
+          <MyCheckBox
+              :elementID="'Да'"
+              @change="e => { this.hiddenComments = JSON.parse(e.target.value) }"
+              :value="true"
+              :check-box-group="'setCommentsCheckBox'"
+          >
+            Да
+          </MyCheckBox>
+        </div>
         <div class="edit-block__btn">
           <MyButton @click="saveIdea" :is-loading="isLoading" class="orange-btn">Опубликовать</MyButton>
         </div>
@@ -32,6 +52,7 @@ import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 
 import MyButton from "../../components/UI/MyButton/MyButton";
 import MyDropList from "../../components/UI/MyDropList/MyDropList";
+import MyCheckBox from "../../components/UI/MyCheckBox/MyCheckBox";
 
 import {QuillEditor} from '@vueup/vue-quill'
 
@@ -40,7 +61,8 @@ export default {
   components: {
     QuillEditor,
     MyButton,
-    MyDropList
+    MyDropList,
+    MyCheckBox
   },
   data() {
     return {
@@ -50,6 +72,7 @@ export default {
       selectedIdeaType: '',
       ideaTypeList: {},
       isDataLoaded: false,
+      hiddenComments: false,
     }
   },
   computed: {

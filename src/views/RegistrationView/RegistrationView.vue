@@ -17,6 +17,7 @@
       <p class="auth-window__text">Как вы хотите зарегистрироваться?</p>
       <div class="reg-window__checkboxes">
         <MyCheckBox
+            :value="'employee'"
             :checked="true"
             :check-box-group="'regType'"
             @change="e => { this.registrationType = e.target.value }"
@@ -25,6 +26,7 @@
           Сотрудник организации
         </MyCheckBox>
         <MyCheckBox
+            :value="'organization'"
             :check-box-group="'regType'"
             :elementID="'organization'"
             @change="e => { this.registrationType = e.target.value }"

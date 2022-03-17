@@ -1,6 +1,7 @@
 .edit-page {
   padding: 17px 0 17px 0;
-  height: calc(100vh - 34px - 90px);
+  //height: calc(100vh - 34px - 90px);
+  height: 100%;
 
   .edit-block {
     width: 100%;
@@ -44,6 +45,21 @@
 
       .myButton {
         width: 196px;
+      }
+    }
+
+    &__set-comment {
+      display: flex;
+      align-items: center;
+      column-gap: 10px;
+      margin-top: 20px;
+
+      p {
+        color: #002C39;
+        font-size: 1.75rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
       }
     }
   }
