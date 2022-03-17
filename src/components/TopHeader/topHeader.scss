@@ -91,6 +91,7 @@
         margin-right: 10px;
         width: 57px;
         border: 2px solid #d59d15;
+        cursor: pointer;
 
         img {
           width: 100%;
@@ -154,6 +155,7 @@
           &.open-menu {
             transition: .3s all;
             height: 34px;
+            z-index: 1;
           }
 
           ul {

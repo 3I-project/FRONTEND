@@ -3,14 +3,12 @@
     <div class="header-wrapper">
       <nav>
         <router-link to="/" :class="{'link-active': $route.path === '/'}">Ленты событий</router-link>
-        <router-link to="#">Мои идеи</router-link>
-        <router-link to="#">Голосования</router-link>
+        <router-link to="#">Сотрудники</router-link>
       </nav>
-
       <div class="header-right">
         <router-link to="/create" class="addButton">Подать идею</router-link>
         <div class="user-block">
-          <div class="user-avatar">
+          <div class="user-avatar" @click="$router.push('/profile')">
             <img :src="avatarUrl" alt="">
           </div>
           <div class="user-menu">
