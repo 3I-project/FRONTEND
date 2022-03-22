@@ -3,7 +3,7 @@
     <div class="header-wrapper">
       <nav>
         <router-link to="/" :class="{'link-active': $route.path === '/'}">Ленты событий</router-link>
-        <router-link to="#">Сотрудники</router-link>
+        <router-link to="/employees" :class="{'link-active': $route.path === '/employees'}">Сотрудники</router-link>
       </nav>
       <div class="header-right">
         <router-link to="/create" class="addButton">Подать идею</router-link>

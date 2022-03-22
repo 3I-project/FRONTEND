@@ -7,6 +7,7 @@ import AuthView from "../views/AuthView/AuthView.vue";
 import RegistrationView from "../views/RegistrationView/RegistrationView.vue";
 import CreateIdeaView from "../views/CreateIdeaView/CreateIdeaView";
 import ProfileView from "../views/ProfileView/ProfileView";
+import EmployeesView from "../views/EmployeesView/EmployeesView"
 
 import store from '../store/index'
 
@@ -63,6 +64,14 @@ const routes = [
     path: '/profile/:id',
     name: 'ProfilePage',
     component: ProfileView,
+    meta: {
+      layout: 'mainLayout'
+    }
+  },
+  {
+    path: '/employees',
+    name: 'EmployeesPage',
+    component: EmployeesView,
     meta: {
       layout: 'mainLayout'
     }
