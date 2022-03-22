@@ -60,7 +60,7 @@ const routes = [
     }
   },
   {
-    path: '/profile',
+    path: '/profile/:id',
     name: 'ProfilePage',
     component: ProfileView,
     meta: {

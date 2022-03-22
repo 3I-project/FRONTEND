@@ -4,7 +4,7 @@
       <div
           class="idea-author"
       >
-        <img :src="avatarUrl" alt="">
+        <img @click="$router.push(`/profile/${idea.id_employee}`)" :src="avatarUrl" alt="">
         <p v-if="isMyIdea">Вы предлагаете: </p>
         <p v-else>
           {{ idea.author.first_name }} {{ idea.author.last_name }}

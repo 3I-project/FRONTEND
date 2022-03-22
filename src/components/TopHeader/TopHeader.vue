@@ -8,7 +8,7 @@
       <div class="header-right">
         <router-link to="/create" class="addButton">Подать идею</router-link>
         <div class="user-block">
-          <div class="user-avatar" @click="$router.push('/profile')">
+          <div class="user-avatar" @click="$router.push(`/profile/${userProfile.id_employee}`)">
             <img :src="avatarUrl" alt="">
           </div>
           <div class="user-menu">

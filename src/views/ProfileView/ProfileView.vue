@@ -13,8 +13,7 @@
             <img :src="avatarUrl" alt="">
           </div>
           <div class="profile-page__info">
-            <p v-if="userProfile.type === 'employee'">{{ userProfile.first_name }} {{ userProfile.last_name }}</p>
-            <p v-else>{{ userProfile.name }}</p>
+            <p>{{ userData.first_name }} {{ userData.last_name }}</p>
             <small v-if="userProfile.type === 'employee'" class="wrapper-user__organization">{{ userProfile.organization.name }}</small>
           </div>
         </div>
@@ -34,9 +33,15 @@ import './profileView.scss'
 
 import MyButton from "../../components/UI/MyButton/MyButton";
 import {mapGetters} from "vuex";
+import axios from "../../http/axios";
 
 export default {
   name: "ProfileView",
+  data () {
+    return {
+      userData: {}
+    }
+  },
   components: {
     MyButton
   },
@@ -45,12 +50,31 @@ export default {
     avatarUrl () {
       const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
 
-      if (this.userProfile.avatarUrl) {
-        return `${baseURL}/avatar/${ this.userProfile.avatarUrl }`
+      if (this.userData.avatarUrl) {
+        return `${baseURL}/avatar/${ this.userData.avatarUrl }`
       }
 
       return require('../../assets/default-avatar.jpg')
     }
+  },
+  methods: {
+    async getUserData (id) {
+      const { data } = await axios.get(`http://localhost:6500/apiV1/profile/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('access')
+        }
+      })
+
+      if (data.status) {
+        console.log(data.payload.user)
+        this.userData = data.payload.user
+      }
+    }
+  },
+  async mounted() {
+    const { id } = this.$route.params;
+
+    await this.getUserData(id)
   }
 }
 </script>
