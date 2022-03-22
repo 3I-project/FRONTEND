@@ -2,7 +2,7 @@
   <div class="profile-page">
     <div class="profile-page__banner">
       <div class="profile-page__wrapper profile-page__banner-text">
-        <MyButton class="orange-btn">Написать сообщение</MyButton>
+        <MyButton class="orange-btn" v-if="userProfile.id_employee !== userData.id_employee">Написать сообщение</MyButton>
       </div>
       <img src="../../../src/assets/Profile/banner.png" alt="">
     </div>
@@ -44,6 +44,13 @@ export default {
   },
   components: {
     MyButton
+  },
+  watch: {
+    async '$route.params' () {
+      const { id } = this.$route.params;
+
+      await this.getUserData(id)
+    }
   },
   computed: {
     ...mapGetters(['userProfile']),
