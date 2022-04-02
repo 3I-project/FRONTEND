@@ -29,14 +29,6 @@
     }
   }
 
-  .idea-loader {
-    width: 100%;
-    height: calc(100vh -  #{$headerHeight});
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .ideas-wrapper {
     height: 100%;
     padding-right: 20px;

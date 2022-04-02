@@ -1,5 +1,8 @@
 <template>
-  <div class="profile-page">
+  <div class="idea-loader" v-if="isLoading">
+    <Loader v-if="isLoading" :loader-text="'Загрузка профиля ...'"  />
+  </div>
+  <div class="profile-page" v-else>
     <div class="profile-page__banner">
       <div class="profile-page__wrapper profile-page__banner-text">
         <MyButton class="orange-btn" v-if="userProfile.id_employee !== userData.id_employee">Написать сообщение</MyButton>
@@ -24,7 +27,11 @@
         </nav>
       </div>
     </div>
-    <div class="page"></div>
+    <div class="page profile-page">
+      <div class="wrapper-item" v-for="idea in posts" :key="idea.id_idea">
+        <Idea :idea="idea" :set-idea-link="true" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -32,6 +39,9 @@
 import './profileView.scss'
 
 import MyButton from "../../components/UI/MyButton/MyButton";
+import Idea from "../../components/Idea/Idea";
+import Loader from "../../components/Loader/Loader";
+
 import {mapGetters} from "vuex";
 import axios from "../../http/axios";
 
@@ -39,11 +49,15 @@ export default {
   name: "ProfileView",
   data () {
     return {
-      userData: {}
+      userData: {},
+      posts: {},
+      isLoading: false,
     }
   },
   components: {
-    MyButton
+    MyButton,
+    Idea,
+    Loader
   },
   watch: {
     async '$route.params' () {
@@ -66,6 +80,7 @@ export default {
   },
   methods: {
     async getUserData (id) {
+      this.isLoading = true
       const { data } = await axios.get(`http://localhost:6500/apiV1/profile/${id}`, {
         headers: {
           Authorization: localStorage.getItem('access')
@@ -73,8 +88,11 @@ export default {
       })
 
       if (data.status) {
-        console.log(data.payload.user)
+        // console.log(data.payload)
         this.userData = data.payload.user
+        this.posts = data.payload.posts
+
+        this.isLoading = false
       }
     }
   },
