@@ -2,7 +2,7 @@ const parseDate = (d) => {
     const date = new Date(d);
 
     const year = date.getFullYear();
-    const month = date.getMonth();
+    const month = date.getMonth() + 1;
     const day = date.getDay();
     const hours = date.getHours();
     const minutes = date.getMinutes();

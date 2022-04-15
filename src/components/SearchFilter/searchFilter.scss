@@ -50,6 +50,7 @@
     height: 100%;
     flex: 0.2;
     margin-left: 10px;
+    position: relative;
 
     .filter-button {
       cursor: pointer;
@@ -68,6 +69,49 @@
       &:hover {
         transition: .3s all;
         background: #0985f1;
+      }
+    }
+
+    .filter-options {
+      position: absolute;
+      background-color: #FFFFFF;
+      width: 100%;
+      top: 100%;
+      right: 0;
+      border-radius: 0 0 5px 5px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: .3s;
+
+      ul {
+
+        li {
+          text-align: center;
+          list-style: none;
+          font-size: 1.25rem;
+          padding: 10px 5px;
+          cursor: pointer;
+
+          &:hover {
+            transition: .3s;
+            background-color: rgba(9, 133, 241, 0.5);
+            color: #FFFFFF;
+          }
+        }
+      }
+    }
+
+    &_open {
+
+      .filter-button {
+        border-radius: 8px 8px 0 0;
+      }
+
+      .filter-options {
+        transition: .3s;
+        opacity: 1;
+        pointer-events: inherit;
       }
     }
   }

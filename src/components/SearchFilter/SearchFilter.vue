@@ -14,9 +14,23 @@
         </svg>
       </button>
     </div>
-    <div class="filter-search__filter-btn">
-      <div class="filter-button">
-        <p>ФИЛЬТР</p>
+    <div
+        class="filter-search__filter-btn"
+        :class="isOpenFilterMenu ? 'filter-search__filter-btn_open' : ''"
+    >
+      <div class="filter-button" @click="isOpenFilterMenu = !isOpenFilterMenu">
+        <p>{{ optionSelectedItemKey ? this.filterList[this.optionSelectedItemKey] : 'ФИЛЬТР' }}</p>
+      </div>
+      <div class="filter-options">
+        <ul>
+          <li
+              v-for="item in Object.entries(filterList)"
+              :key="item"
+              @click="changeSelectedItem(item[0])"
+          >
+            {{ item[1] }}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -24,15 +38,24 @@
 
 <script>
 import './searchFilter.scss'
+import { FILTER_OPTIONS_LIST } from '../../enums/enums';
 
 export default {
   name: "SearchFilter",
   data () {
     return {
-      filterString: ''
+      filterString: '',
+      isOpenFilterMenu: false,
+      filterList: null,
+      optionSelectedItemKey: null
     }
   },
   methods: {
+    changeSelectedItem(key) {
+      this.optionSelectedItemKey = key;
+
+      this.isOpenFilterMenu = false;
+    },
     inputFilter () {
       this.$api.get(`/idea/filter?q=${this.filterString}`, {
         headers: {
@@ -50,6 +73,9 @@ export default {
             console.log(error.response)
           })
     }
+  },
+  created() {
+    this.filterList = FILTER_OPTIONS_LIST;
   }
 }
 </script>
