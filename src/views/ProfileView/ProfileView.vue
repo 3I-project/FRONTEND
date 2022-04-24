@@ -21,16 +21,14 @@
           </div>
         </div>
         <nav class="profile-page__nav">
-          <p class="nav-active">Идеи</p>
-          <p>Статистика</p>
-          <p>Обо мне</p>
+          <p :class="currentTab === 'ideas' ? 'nav-active' : ''" @click="currentTab = 'ideas'">Идеи</p>
+          <p :class="currentTab === 'about' ? 'nav-active' : ''" @click="currentTab = 'about'">Информация о сотруднике</p>
         </nav>
       </div>
     </div>
     <div class="page profile-page">
-      <div class="wrapper-item" v-for="idea in posts" :key="idea.id_idea">
-        <Idea :idea="idea" :set-idea-link="true" />
-      </div>
+      <IdeasTab :posts="posts" v-if="currentTab === 'ideas'" />
+      <AboutTab v-if="currentTab === 'about'" />
     </div>
   </div>
 </template>
@@ -39,8 +37,10 @@
 import './profileView.scss'
 
 import MyButton from "../../components/UI/MyButton/MyButton";
-import Idea from "../../components/Idea/Idea";
 import Loader from "../../components/Loader/Loader";
+
+import IdeasTab from "./Tabs/IdeasTab/IdeasTab";
+import AboutTab from "./Tabs/AboutTab/AboutTab";
 
 import {mapGetters} from "vuex";
 import axios from "../../http/axios";
@@ -52,12 +52,14 @@ export default {
       userData: {},
       posts: {},
       isLoading: false,
+      currentTab: 'ideas'
     }
   },
   components: {
     MyButton,
-    Idea,
-    Loader
+    Loader,
+    IdeasTab,
+    AboutTab
   },
   watch: {
     async '$route.params' () {
