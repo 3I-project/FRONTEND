@@ -28,7 +28,7 @@
     </div>
     <div class="page profile-page">
       <IdeasTab :posts="posts" v-if="currentTab === 'ideas'" />
-      <AboutTab v-if="currentTab === 'about'" />
+      <AboutTab :personalInformation="personalInformation" v-if="currentTab === 'about'" />
     </div>
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
     return {
       userData: {},
       posts: {},
+      personalInformation: {},
       isLoading: false,
       currentTab: 'ideas'
     }
@@ -93,6 +94,7 @@ export default {
         // console.log(data.payload)
         this.userData = data.payload.user
         this.posts = data.payload.posts
+        this.personalInformation = data.payload.personalInformation
 
         this.isLoading = false
       }
