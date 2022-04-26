@@ -5,7 +5,7 @@
   <div class="profile-page" v-else>
     <div class="profile-page__banner">
       <div class="profile-page__wrapper profile-page__banner-text">
-        <MyButton class="orange-btn" v-if="userProfile.id_employee !== userData.id_employee">Написать сообщение</MyButton>
+        <MyButton class="orange-btn" v-if="!isMyProfile">Написать сообщение</MyButton>
       </div>
       <img src="../../../src/assets/Profile/banner.png" alt="">
     </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="page profile-page">
       <IdeasTab :posts="posts" v-if="currentTab === 'ideas'" />
-      <AboutTab :personalInformation="personalInformation" v-if="currentTab === 'about'" />
+      <AboutTab :isMyProfile="isMyProfile" :personalInformation="personalInformation" v-if="currentTab === 'about'" />
     </div>
   </div>
 </template>
@@ -79,6 +79,9 @@ export default {
       }
 
       return require('../../assets/default-avatar.jpg')
+    },
+    isMyProfile() {
+      return this.userProfile.id_employee === this.userData.id_employee
     }
   },
   methods: {

@@ -3,25 +3,38 @@
     <div class="about-section">
       <div class="about-section__header">
         <p class="about-section__title">Личная информация</p>
-        <span class="about-section__button">Редактировать</span>
       </div>
-      <textarea class="about-section__field about-section__field_textarea" readonly v-model="personalInformationCopy.about" placeholder="Укажите информация о себе..."></textarea>
+      <textarea
+          class="about-section__field about-section__field_textarea"
+          :readonly="!editPersonalInformation"
+          v-model="personalInformationCopy.about"
+          :placeholder="isMyProfile ? 'Укажите информация о себе...' : 'Пользовтаель не указал личной информации'"></textarea>
     </div>
     <div class="about__wrapper">
       <div class="about-section">
         <div class="about-section__header">
           <p class="about-section__title">Образование</p>
-          <span class="about-section__button">Редактировать</span>
         </div>
-        <input type="text" class="about-section__field about-section__field_input" readonly v-model="personalInformationCopy.education" placeholder="Не указано" />
+        <input type="text" class="about-section__field about-section__field_input" :readonly="!editPersonalInformation" v-model="personalInformationCopy.education" placeholder="Не указано" />
       </div>
       <div class="about-section">
         <div class="about-section__header">
           <p class="about-section__title">Дата рождения</p>
-<!--          <span class="about-section__button">Редактировать</span>-->
         </div>
-        <input type="text" class="about-section__field about-section__field_input" readonly :value="displayBirthday" placeholder="Пример: 25.10.22" />
+        <input
+            type="text"
+            class="about-section__field about-section__field_input"
+            readonly :value="displayBirthday"
+            :placeholder="isMyProfile ? 'Пример: 25.10.22' : 'Не указана'"
+        />
       </div>
+    </div>
+    <div class="about__footer" v-if="isMyProfile">
+      <MyButton class="blue-btn" v-if="!editPersonalInformation" @click="startEditPersonalInformation">Редактировать</MyButton>
+      <template v-else>
+        <MyButton class="grey-btn" @click="cancelEditPersonalInformation">Отменить</MyButton>
+        <MyButton class="orange-btn" @click="saveEditPersonalInformation">Сохранить</MyButton>
+      </template>
     </div>
   </div>
 </template>
@@ -30,17 +43,27 @@
 import './aboutTab.scss';
 import moment from 'moment';
 
+import MyButton from "../../../../components/UI/MyButton/MyButton";
+import axios from "../../../../http/axios";
+
 export default {
   name: "AboutTab",
   props: {
     personalInformation: {
       type: Object
+    },
+    isMyProfile: {
+      type: Boolean
     }
   },
   data() {
     return {
-      personalInformationCopy: {}
+      personalInformationCopy: {},
+      editPersonalInformation: false
     }
+  },
+  components: {
+    MyButton
   },
   computed: {
     displayBirthday() {
@@ -50,9 +73,33 @@ export default {
       return moment(this.personalInformationCopy.date_birth).format("D.MM.YYYY")
     }
   },
+  methods: {
+    startEditPersonalInformation() {
+      this.editPersonalInformation = true
+    },
+    cancelEditPersonalInformation() {
+      this.editPersonalInformation = false
+    },
+    async saveEditPersonalInformation() {
+      const payload = {
+        payload: this.personalInformationCopy
+      }
+
+      const { data } = await axios.post('http://localhost:6500/apiV1/update-pi', payload,{
+        headers: {
+          Authorization: localStorage.getItem('access')
+        }
+      })
+
+      if (data.payload.success) {
+        this.editPersonalInformation = false
+      } else {
+        console.log('Ошибка при сохранении данных')
+      }
+    }
+  },
   mounted() {
     this.personalInformationCopy = {...this.personalInformation};
-    console.log(moment(this.personalInformationCopy.date_birth).format("D.MM.YYYY"))
   }
 }
 </script>
