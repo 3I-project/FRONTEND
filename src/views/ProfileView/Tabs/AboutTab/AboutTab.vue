@@ -82,7 +82,12 @@ export default {
     },
     async saveEditPersonalInformation() {
       const payload = {
-        payload: this.personalInformationCopy
+        payload: {
+          user_id: this.$store.state.userProfile.id_employee,
+          education: this.personalInformationCopy?.education,
+          date_birth: this.personalInformationCopy?.date_birth,
+          about: this.personalInformationCopy?.about
+        }
       }
 
       const { data } = await axios.post('http://localhost:6500/apiV1/update-pi', payload,{
