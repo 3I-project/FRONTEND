@@ -4,12 +4,13 @@
       <Loader :loader-text="'Загрузка идеи ...'" />
     </div>
     <template v-else>
+      <EditIdeaModal :idea="ideaData[0]" @closeEditModal="openEditIdeaModal = false" v-show="openEditIdeaModal" />
       <div class="idea-wrapper">
-        <Idea :idea="ideaData[0]" />
+        <Idea :idea="ideaData[0]" @editIdea="(value) => this.openEditIdeaModal = value" />
       </div>
-      <div class="idea-vote">
-        <VoteController />
-      </div>
+<!--      <div class="idea-vote">-->
+<!--        <VoteController />-->
+<!--      </div>-->
       <div class="idea-comments">
         <div class="input-comment">
           <p>Оставить комментарий</p>
@@ -53,7 +54,8 @@ import MyButton from "../../components/UI/MyButton/MyButton";
 
 import Loader from "../../components/Loader/Loader";
 import Idea from "../../components/Idea/Idea";
-import VoteController from "../../components/VoteController/VoteController";
+// import VoteController from "../../components/VoteController/VoteController";
+import EditIdeaModal from "../../components/Modals/EditIdeaModal/EditIdeaModal";
 
 export default {
   name: "IdeaView",
@@ -63,13 +65,15 @@ export default {
       ideaData: null,
       comments: 0,
       commentInput: '',
+      openEditIdeaModal: false
     }
   },
   components: {
     Loader,
     Idea,
-    VoteController,
-    MyButton
+    // VoteController,
+    MyButton,
+    EditIdeaModal
   },
   computed: {
     ...mapGetters(['userProfile']),

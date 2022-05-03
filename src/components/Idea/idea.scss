@@ -48,11 +48,52 @@
     }
 
     .idea-date {
-
+      display: flex;
+      align-items: center;
       p {
         font-size: 1.25rem;
         font-weight: 500;
         color: #596678;
+      }
+
+      &__more {
+        height: 20px;
+        margin-left: 20px;
+        cursor: pointer;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .more-list {
+          position: absolute;
+          right: 0;
+          top: calc(100% + 10px);
+          background-color: #ffffff;
+          opacity: 0;
+          pointer-events: none;
+          transition: .3s all;
+
+          &_open {
+            transition: .3s all;
+            opacity: 1;
+            pointer-events: inherit;
+          }
+
+          ul {
+            list-style: none;
+
+            li {
+              cursor: pointer;
+              font-size: 1rem;
+              color: #000000;
+              padding: 5px 10px;
+              border-radius: 2px;
+            }
+          }
+        }
       }
     }
   }

@@ -1,4 +1,13 @@
 @import "../../scss/variables";
+
+//.fade-enter-active, .fade-leave-active {
+//  transition: opacity .3s;
+//}
+//
+//.fade-enter, .fade-leave-to {
+//  opacity: 0;
+//}
+
 .idea-page {
   padding: 17px 0 17px 0;
   height: inherit;
@@ -6,7 +15,7 @@
   .idea {
     height: inherit;
     max-height: none;
-    box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.14);
+    box-shadow: 0 0 29px rgba(0, 0, 0, 0.14);
   }
 
   .idea-loader {

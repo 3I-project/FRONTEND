@@ -1,0 +1,64 @@
+.modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+
+  &-block {
+    background-color: #FFFFFF;
+    padding: 50px 20px;
+    position: relative;
+    box-sizing: border-box;
+
+    &__close {
+      width: 40px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-modal {
+
+  .modal-block {
+    background-color: #FFFFFF;
+    width: 80%;
+    border-radius: 10px;
+  }
+
+  &__title {
+
+    input {
+      font-size: 2.5rem;
+      color: #000000;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+
+      border: none;
+      outline: none;
+    }
+  }
+
+  &__editor {
+    margin-top: 10px;
+    height: 500px;
+
+    .ql-container {
+      height: 420px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

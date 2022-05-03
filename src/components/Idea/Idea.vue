@@ -13,6 +13,15 @@
       </div>
       <div class="idea-date">
         <p>Дата публикации: {{ publishDate.pD }}.{{ publishDate.pMn }}.{{ publishDate.year }}.</p>
+        <div class="idea-date__more" @click="openMoreList = !openMoreList" v-if="isMyIdea && !setIdeaLink">
+          <img src="../../../src/assets/idea/more.svg" alt="more">
+
+          <div class="more-list" :class="openMoreList ? 'more-list_open' : ''">
+            <ul>
+              <li @click="editIdea">Редактировать</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="idea__content" :class="{'idea-link': setIdeaLink}" @click="goToIdea($event)">
@@ -71,6 +80,11 @@ export default {
   components: {
     QuillEditor
   },
+  data() {
+    return {
+      openMoreList: false
+    }
+  },
   computed: {
     ...mapGetters(['userProfile']),
     isMyIdea () {
@@ -104,6 +118,9 @@ export default {
       if (this.setIdeaLink && !ideaBody) {
         this.$router.push(`/idea/${this.idea.id_idea}`);
       }
+    },
+    editIdea() {
+      this.$emit('editIdea', this.openMoreList)
     }
   }
 }
