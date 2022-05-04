@@ -34,11 +34,11 @@
       <div class="idea-controllers">
         <div class="idea-controllers__item like-controller">
           <img src="../../../src/assets/idea/controllers/like.svg" alt="">
-          <p>0</p>
+          <p>{{ idea.reactions.likes}}</p>
         </div>
         <div class="idea-controllers__item dislike-controller">
           <img src="../../../src/assets/idea/controllers/dislike.svg" alt="">
-          <p>0</p>
+          <p>{{ idea.reactions.dislikes }}</p>
         </div>
         <div class="idea-controllers__item comment-controller">
           <img src="../../../src/assets/idea/controllers/comment.svg" alt="">
@@ -75,6 +75,15 @@ export default {
     setIdeaLink: {
       type: Boolean,
       default: false,
+    },
+    reactions: {
+      type: Object,
+      default: () => {
+        return {
+          likes: 0,
+          dislikes: 0
+        }
+      }
     }
   },
   components: {

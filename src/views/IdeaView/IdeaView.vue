@@ -6,7 +6,7 @@
     <template v-else>
       <EditIdeaModal :idea="ideaData[0]" @closeEditModal="closeEditModal" v-show="openEditIdeaModal" />
       <div class="idea-wrapper">
-        <Idea :idea="ideaData[0]" @editIdea="(value) => this.openEditIdeaModal = value" />
+        <Idea :idea="ideaData[0]" :reactions="{likes, dislikes}" @editIdea="(value) => this.openEditIdeaModal = value" />
       </div>
 <!--      <div class="idea-vote">-->
 <!--        <VoteController />-->
@@ -65,7 +65,9 @@ export default {
       ideaData: null,
       comments: 0,
       commentInput: '',
-      openEditIdeaModal: false
+      openEditIdeaModal: false,
+      likes: 0,
+      dislikes: 0,
     }
   },
   components: {
@@ -164,13 +166,28 @@ export default {
           .catch(error => {
             console.log(error.response)
           })
-    }
+    },
+    // async getIdeaReactions() {
+    //   await this.$api.get(`/reaction?idea_id=${this.$route.params.id}`)
+    //     .then(response => {
+    //       const { data } = response
+    //
+    //       console.log(data)
+    //
+    //       this.likes = data.payload.likes;
+    //       this.dislikes = data.payload.dislikes;
+    //     })
+    //       .catch(error => {
+    //         console.log(error.response)
+    //       })
+    // }
   },
   async mounted() {
     this.isLoading= true;
 
     await this.getIdeaData();
     await this.getIdeaComments();
+    // await this.getIdeaReactions();
 
     this.isLoading = false
   }
