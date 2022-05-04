@@ -4,7 +4,7 @@
       <Loader :loader-text="'Загрузка идеи ...'" />
     </div>
     <template v-else>
-      <EditIdeaModal :idea="ideaData[0]" @closeEditModal="openEditIdeaModal = false" v-show="openEditIdeaModal" />
+      <EditIdeaModal :idea="ideaData[0]" @closeEditModal="closeEditModal" v-show="openEditIdeaModal" />
       <div class="idea-wrapper">
         <Idea :idea="ideaData[0]" @editIdea="(value) => this.openEditIdeaModal = value" />
       </div>
@@ -79,6 +79,15 @@ export default {
     ...mapGetters(['userProfile']),
   },
   methods: {
+    async closeEditModal(updateStatus) {
+      if (updateStatus) {
+        this.isLoading= true;
+        await this.getIdeaData()
+        this.isLoading= false;
+      }
+
+      this.openEditIdeaModal = false
+    },
     timePassed (date) {
       const d = new Date(Date.now() - new Date(date));
 

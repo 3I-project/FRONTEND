@@ -1,7 +1,7 @@
 <template>
   <div class="modal edit-modal">
     <div class="modal-block">
-      <div class="modal-block__close" @click="$emit('closeEditModal')">
+      <div class="modal-block__close" @click="closeModal(false)">
         <img src="../../../assets/modal/close.svg" alt="close">
       </div>
       <div class="modal-block__body">
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="edit-modal__footer">
-        <MyButton class="orange-btn">
+        <MyButton class="orange-btn" @click="updateIdea" :is-loading="isUpdating">
           Сохранить измененния
         </MyButton>
       </div>
@@ -42,7 +42,37 @@ export default {
   data() {
     return {
       editIdea: {},
-      isLoading: true
+      isLoading: true,
+      isUpdating: false
+    }
+  },
+  methods: {
+    closeModal(updateStatus) {
+      this.$emit('closeEditModal', updateStatus)
+    },
+    updateIdea() {
+      this.isUpdating = true
+
+      const payload = {
+        id_idea: this.editIdea.id_idea,
+        title: this.editIdea.title,
+        content: JSON.stringify(this.editIdea.message_text)
+      }
+
+      this.$api.post('/idea/update-post', payload)
+      .then(response => {
+        const { data } = response
+
+        console.log(data.msg)
+
+        this.closeModal(true);
+      })
+      .catch(error => {
+        console.log(error)
+      })
+      .finally(() => {
+        this.isUpdating = false
+      })
     }
   },
   mounted() {
