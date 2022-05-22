@@ -95,7 +95,7 @@ export default {
 
       const month = d.getUTCMonth();
       const day = d.getUTCDate() - 1;
-      const hour = d.getUTCHours();
+      const hour = d.getUTCHours() - 3;
       const minutes = d.getUTCMinutes();
       const seconds = d.getUTCSeconds();
 

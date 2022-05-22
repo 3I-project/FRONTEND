@@ -101,7 +101,7 @@ export default {
     },
     publishDate () {
       const { pD, pMn, year } = parseDate(this.idea.created);
-
+      console.log(pD)
       return {
         pD,
         pMn,
