@@ -32,13 +32,13 @@
     </div>
     <div class="idea__footer">
       <div class="idea-controllers">
-        <div class="idea-controllers__item like-controller">
+        <div class="idea-controllers__item like-controller" @click="setReaction(1)">
           <img src="../../../src/assets/idea/controllers/like.svg" alt="">
-          <p>{{ idea.reactions.likes}}</p>
+          <p>{{ ideaReactions.likes}}</p>
         </div>
-        <div class="idea-controllers__item dislike-controller">
+        <div class="idea-controllers__item dislike-controller" @click="setReaction(-1)">
           <img src="../../../src/assets/idea/controllers/dislike.svg" alt="">
-          <p>{{ idea.reactions.dislikes }}</p>
+          <p>{{ ideaReactions.dislikes }}</p>
         </div>
         <div class="idea-controllers__item comment-controller">
           <img src="../../../src/assets/idea/controllers/comment.svg" alt="">
@@ -91,7 +91,11 @@ export default {
   },
   data() {
     return {
-      openMoreList: false
+      openMoreList: false,
+      ideaReactions: {
+        likes: this.idea.reactions.likes,
+        dislikes: this.idea.reactions.dislikes
+      }
     }
   },
   computed: {
@@ -130,6 +134,25 @@ export default {
     },
     editIdea() {
       this.$emit('editIdea', this.openMoreList)
+    },
+    setReaction(type) {
+      this.$api.post('/reaction/set', {
+        idea_id: this.idea.id_idea,
+        type
+      })
+          .then(response => {
+            const { data } = response;
+
+            if (data.statusCode === 200) {
+              console.log(data.payload.msg);
+
+              type === 1 ? this.ideaReactions.likes += 1 : this.ideaReactions.dislikes += 1;
+            }
+          })
+          .catch((err) => {
+            const { data } = err.response
+            console.log(data)
+          })
     }
   }
 }
