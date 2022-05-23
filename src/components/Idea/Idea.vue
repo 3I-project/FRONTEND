@@ -135,23 +135,38 @@ export default {
     editIdea() {
       this.$emit('editIdea', this.openMoreList)
     },
-    setReaction(type) {
+    setReaction: function (type) {
       this.$api.post('/reaction/set', {
         idea_id: this.idea.id_idea,
         type
       })
           .then(response => {
-            const { data } = response;
+            const {data} = response;
 
             if (data.statusCode === 200) {
               console.log(data.payload.msg);
 
-              type === 1 ? this.ideaReactions.likes += 1 : this.ideaReactions.dislikes += 1;
+              if (data.payload.update) {
+                if (type === 1) {
+                  this.ideaReactions.dislikes -= 1
+                  this.ideaReactions.likes += 1;
+                } else {
+                  this.ideaReactions.dislikes += 1;
+                  this.ideaReactions.likes -= 1;
+                }
+              } else {
+                type === 1 ? this.ideaReactions.likes += 1 : this.ideaReactions.dislikes += 1;
+              }
+
+              type === 1 ? this.$toast.success(`Вы одобрили идею '${this.idea.title}'!`)
+                  : this.$toast.info(`Вам не понравилась идея '${this.idea.title}'!`)
             }
           })
           .catch((err) => {
-            const { data } = err.response
+            const {data} = err.response
             console.log(data)
+
+            this.$toast.error(data.payload.message)
           })
     }
   }
