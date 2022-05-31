@@ -27,7 +27,13 @@
       </div>
     </div>
     <div class="page profile-page">
-      <IdeasTab :posts="posts" v-if="currentTab === 'ideas'" />
+      <IdeasTab :posts="posts" v-if="currentTab === 'ideas' && posts.length" />
+      <div class="profile-page__empty" v-if="currentTab === 'ideas' && !posts.length">
+        <p>Будь первым! Создай и оформи свою идею.</p>
+        <router-link to="/create">
+          Подать идею
+        </router-link>
+      </div>
       <AboutTab
           :isMyProfile="isMyProfile"
           :personalInformation="personalInformation"

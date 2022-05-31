@@ -1,5 +1,37 @@
 .profile-page {
 
+  &__empty {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    p {
+      font-size: 1.7rem;
+      color: #FF5018;
+      text-transform: uppercase;
+    }
+
+    a {
+      text-decoration: none;
+      color: #1890FF;
+      border: 1px solid #1890FF;
+      padding: 10px 15px;
+      border-radius: 20px;
+      margin-top: 20px;
+      transition: .3s all;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: #FFFFFF;
+        background-color: #FF5018;
+        border-color: #FF5018;
+        transition: .3s all;
+      }
+    }
+  }
+
   &__wrapper {
     max-width: 1400px;
     width: 100%;
