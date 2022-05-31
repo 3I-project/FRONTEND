@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     displayBirthday() {
-      if (!Object.keys(this.personalInformationCopy).length) {
+      if (!Object.keys(this.personalInformationCopy).length || !this.personalInformationCopy.date_birth) {
         return ""
       }
       return moment(this.personalInformationCopy.date_birth).format("D.MM.YYYY")
@@ -98,6 +98,8 @@ export default {
 
       if (data.payload.success) {
         this.editPersonalInformation = false
+
+        this.$emit('updateProfileData');
       } else {
         console.log('Ошибка при сохранении данных')
       }

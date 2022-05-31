@@ -28,7 +28,12 @@
     </div>
     <div class="page profile-page">
       <IdeasTab :posts="posts" v-if="currentTab === 'ideas'" />
-      <AboutTab :isMyProfile="isMyProfile" :personalInformation="personalInformation" v-if="currentTab === 'about'" />
+      <AboutTab
+          :isMyProfile="isMyProfile"
+          :personalInformation="personalInformation"
+          v-if="currentTab === 'about'"
+          @updateProfileData="getUserData($route.params.id)"
+      />
     </div>
   </div>
 </template>

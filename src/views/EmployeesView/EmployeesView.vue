@@ -1,7 +1,7 @@
 <template>
     <div class="page employees-page">
       <div class="employees-page__header">
-        <h1>сотрудников организации</h1>
+        <h1>Сотрудники организации</h1>
       </div>
       <div class="employees-page__main">
         <div class="employee-item" v-for="employee in employeesList.employees" :key="employee.id_employee">
@@ -17,7 +17,7 @@
           </div>
           <div class="employee-item__controllers">
             <img src="../../../src/assets/employeeView/profile.svg" @click="goToProfile(employee)" alt="">
-            <img src="../../../src/assets/employeeView/message.svg" alt="">
+<!--            <img src="../../../src/assets/employeeView/message.svg" alt="">-->
           </div>
         </div>
       </div>
