@@ -55,9 +55,11 @@ export default {
       this.optionSelectedItemKey = key;
 
       this.isOpenFilterMenu = false;
+
+      this.inputFilter();
     },
     inputFilter () {
-      this.$api.get(`/idea/filter?q=${this.filterString}`, {
+      this.$api.get(`/idea/filter?q=${this.filterString}&filterType=${this.filterList[this.optionSelectedItemKey]}`, {
         headers: {
           Authorization: localStorage.getItem('access')
         }
