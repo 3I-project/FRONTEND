@@ -2,11 +2,15 @@
 
   &__header {
     display: flex;
-    justify-content: center;
     margin-bottom: 20px;
-    text-transform: uppercase;
     padding-top: 20px;
     color: #1890FF;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    small {
+      font-size: 1.3rem;
+    }
   }
 
   &__main {
@@ -16,11 +20,13 @@
     row-gap: 20px;
 
     .employee-item {
-      display: flex;
       align-items: center;
       padding: 15px 15px;
       border-radius: 10px;
       background-color: #f1f1f1;
+      display: grid;
+      grid-template-columns: 70px minmax(100px, 300px) 1fr 50px;
+      cursor: pointer;
 
       &__avatar {
         width: 60px;
@@ -54,6 +60,10 @@
           font-size: 1rem;
           color: #7e7e7e;
         }
+      }
+
+      &__statistic {
+
       }
 
       &__controllers {

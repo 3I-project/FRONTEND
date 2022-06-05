@@ -4,9 +4,9 @@
   </div>
   <div class="profile-page" v-else>
     <div class="profile-page__banner">
-      <div class="profile-page__wrapper profile-page__banner-text">
+<!--      <div class="profile-page__wrapper profile-page__banner-text">
         <MyButton class="orange-btn" v-if="!isMyProfile">Написать сообщение</MyButton>
-      </div>
+      </div>-->
       <img src="../../../src/assets/Profile/banner.png" alt="">
     </div>
     <div class="profile-page__header">
@@ -16,7 +16,10 @@
             <img :src="avatarUrl" alt="">
           </div>
           <div class="profile-page__info">
-            <p>{{ userData.first_name }} {{ userData.last_name }}</p>
+            <p>
+              {{ userData.first_name }} {{ userData.last_name }}
+              <img v-show="userData.isLeader" src="../../../src/assets/employeeView/crown-new.png" alt="">
+            </p>
             <small v-if="userProfile.type === 'employee'" class="wrapper-user__organization">{{ userProfile.organization.name }}</small>
           </div>
         </div>
@@ -47,7 +50,7 @@
 <script>
 import './profileView.scss'
 
-import MyButton from "../../components/UI/MyButton/MyButton";
+// import MyButton from "../../components/UI/MyButton/MyButton";
 import Loader from "../../components/Loader/Loader";
 
 import IdeasTab from "./Tabs/IdeasTab/IdeasTab";
@@ -68,7 +71,7 @@ export default {
     }
   },
   components: {
-    MyButton,
+    // MyButton,
     Loader,
     IdeasTab,
     AboutTab
