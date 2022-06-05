@@ -12,33 +12,38 @@
 <!--        <VoteController />-->
 <!--      </div>-->
       <div class="idea-comments">
-        <div class="input-comment">
-          <p>Оставить комментарий</p>
-          <textarea v-model="commentInput" @keydown.enter="sendComment" placeholder="Написать комментарий..."></textarea>
-          <MyButton class="comment-input blue-btn" @click="sendComment">Отправить</MyButton>
-          <span>{{ comments.length || 0 }} комментария</span>
+        <div class="idea-comments__hint" v-show="!this.ideaData[0].enableComments">
+          Автор отключил комментарии к данной идеи!
         </div>
-        <div class="comment-line"></div>
-        <div class="comments-wrapper" v-if="comments.length">
-          <div class="comment-item" v-for="comment in comments" :key="comment.id_comment">
-            <div class="comment-item__top">
-              <div class="user-avatar">
-                <img :src="avatarUrl(comment.author.avatarHash)" alt="">
-              </div>
-              <p>
-                {{ comment.author.first_name }} {{ comment.author.last_name }}
+        <div :class="!this.ideaData[0].enableComments ? 'idea-comments_off': ''" >
+          <div class="input-comment">
+            <p>Оставить комментарий</p>
+            <textarea v-model="commentInput" @keydown.enter="sendComment" placeholder="Написать комментарий..."></textarea>
+            <MyButton class="comment-input blue-btn" @click="sendComment">Отправить</MyButton>
+            <span>{{ comments.length || 0 }} комментария</span>
+          </div>
+          <div class="comment-line"></div>
+          <div class="comments-wrapper" v-if="comments.length">
+            <div class="comment-item" v-for="comment in comments" :key="comment.id_comment">
+              <div class="comment-item__top">
+                <div class="user-avatar">
+                  <img :src="avatarUrl(comment.author.avatarHash)" alt="">
+                </div>
+                <p>
+                  {{ comment.author.first_name }} {{ comment.author.last_name }}
 
-                <span v-if="comment.author.isLeader">(руководитель организации)</span>
-              </p>
-              <small>{{ timePassed(comment.created_date) }}</small>
-            </div>
-            <div class="comment-item__content">
-              <p>{{ comment.text }}</p>
+                  <span v-if="comment.author.isLeader">(руководитель организации)</span>
+                </p>
+                <small>{{ timePassed(comment.created_date) }}</small>
+              </div>
+              <div class="comment-item__content">
+                <p>{{ comment.text }}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="comments-empty" v-else>
-          <p>Будь первый! Напиши комментарий!</p>
+          <div class="comments-empty" v-else>
+            <p>Будь первый! Напиши комментарий!</p>
+          </div>
         </div>
       </div>
     </template>
@@ -131,6 +136,7 @@ export default {
     },
     async sendComment () {
       if (!this.commentInput.length) return
+      if (!this.ideaData[0].enableComments) return
 
       const requestPayload = {
         text: this.commentInput,

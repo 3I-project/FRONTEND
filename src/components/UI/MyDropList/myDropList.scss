@@ -46,6 +46,7 @@
     &.myDropList-options_visible {
       height: 200px;
       transition: .4s all;
+      z-index: 1;
     }
 
     ul {

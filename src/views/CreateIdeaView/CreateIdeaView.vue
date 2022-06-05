@@ -20,8 +20,8 @@
           <p>Отключить комментарии к идеи:</p>
           <MyCheckBox
               :elementID="'Нет'"
-              :value="false"
-              @change="e => { this.hiddenComments = JSON.parse(e.target.value) }"
+              :value="true"
+              @change="e => { this.enableComments = JSON.parse(e.target.value) }"
               :check-box-group="'setCommentsCheckBox'"
               :checked="true"
           >
@@ -29,8 +29,8 @@
           </MyCheckBox>
           <MyCheckBox
               :elementID="'Да'"
-              @change="e => { this.hiddenComments = JSON.parse(e.target.value) }"
-              :value="true"
+              @change="e => { this.enableComments = JSON.parse(e.target.value) }"
+              :value="false"
               :check-box-group="'setCommentsCheckBox'"
           >
             Да
@@ -72,7 +72,7 @@ export default {
       selectedIdeaType: '',
       ideaTypeList: {},
       isDataLoaded: false,
-      hiddenComments: false,
+      enableComments: false,
     }
   },
   computed: {
@@ -102,6 +102,7 @@ export default {
         title: this.title,
         content: JSON.stringify(this.content),
         type_id: this.selectedIdeaType,
+        enableComments: this.enableComments
       })
           .then(response => {
             const {data} = response

@@ -11,6 +11,27 @@
         <div class="edit-modal__editor" v-if="!isLoading">
           <QuillEditor v-model:content="this.editIdea.message_text" :readOnly="false" theme="snow" toolbar="full" />
         </div>
+        <div class="edit-modal__comments">
+          <p>Отключить комментарии к идеи:</p>
+          <MyCheckBox
+              :elementID="'Нет'"
+              :value="true"
+              @change="e => { this.editIdea.enableComments = JSON.parse(e.target.value) }"
+              :check-box-group="'setCommentsCheckBox'"
+              :checked="this.editIdea.enableComments === true"
+          >
+            Нет
+          </MyCheckBox>
+          <MyCheckBox
+              :elementID="'Да'"
+              @change="e => { this.editIdea.enableComments = JSON.parse(e.target.value) }"
+              :value="false"
+              :check-box-group="'setCommentsCheckBox'"
+              :checked="this.editIdea.enableComments === false"
+          >
+            Да
+          </MyCheckBox>
+        </div>
       </div>
       <div class="edit-modal__footer">
         <MyButton class="orange-btn" @click="updateIdea" :is-loading="isUpdating">
@@ -27,6 +48,7 @@ import './editIdeaModal.scss';
 import {QuillEditor} from '@vueup/vue-quill'
 
 import MyButton from "../../UI/MyButton/MyButton";
+import MyCheckBox from "../../UI/MyCheckBox/MyCheckBox";
 
 export default {
   name: "EditIdeaModal",
@@ -37,13 +59,14 @@ export default {
   },
   components: {
     QuillEditor,
-    MyButton
+    MyButton,
+    MyCheckBox
   },
   data() {
     return {
       editIdea: {},
       isLoading: true,
-      isUpdating: false
+      isUpdating: false,
     }
   },
   methods: {
@@ -56,7 +79,8 @@ export default {
       const payload = {
         id_idea: this.editIdea.id_idea,
         title: this.editIdea.title,
-        content: JSON.stringify(this.editIdea.message_text)
+        content: JSON.stringify(this.editIdea.message_text),
+        enableComments: this.editIdea.enableComments
       }
 
       this.$api.post('/idea/update-post', payload)
