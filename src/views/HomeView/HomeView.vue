@@ -1,17 +1,21 @@
 <template>
   <div class="page home-page">
+    <!-- Комопонент загрузки станицы -->
     <div class="idea-loader" v-if="isLoading">
       <Loader :loader-text="'Идет загрузка идей ...'" />
     </div>
     <div class="home-page__wrapper" v-else>
       <div class="search-wrapper">
-        <SearchFilter @filteringData="setFilteredData" />
+        <!-- Комопонент фильтрации идей -->
+        <SearchFilter @filteringData="setFilteredData" /> 
       </div>
       <div class="ideas-wrapper" v-if="ideas.length">
         <div class="wrapper-item" v-for="idea in ideas" :key="idea.id_idea">
+          <!-- Комопонент идеи -->
           <Idea :idea="idea" :set-idea-link="true" />
         </div>
       </div>
+      <!-- Если идеи отсутствуют, то выводит соответствующую запись -->
       <div class="empty-block" v-if="!ideas.length">
         <p>
           Ничего не найдено
@@ -40,12 +44,12 @@ export default {
       isFiltered: false,
     }
   },
-  components: {
+  components: { // Регистарция компонентов
     Idea,
     Loader,
     SearchFilter
   },
-  created() {
+  created() { // Получение списка идей
     this.isLoading = true;
 
     this.$api.get('/idea/posts')

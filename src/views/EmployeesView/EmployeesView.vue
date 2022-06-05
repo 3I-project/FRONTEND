@@ -17,7 +17,6 @@
           </div>
           <div class="employee-item__controllers">
             <img src="../../../src/assets/employeeView/profile.svg" @click="goToProfile(employee)" alt="">
-<!--            <img src="../../../src/assets/employeeView/message.svg" alt="">-->
           </div>
         </div>
       </div>

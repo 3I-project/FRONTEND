@@ -19,7 +19,7 @@ $api.interceptors.response.use(config => {
     return config
 }, async (error) => {
     if (error.response.status === 401) {
-        console.log('Access_token истек')
+        /*console.log('Access_token истек')
         const originalRequest = error.config;
 
         try {
@@ -40,7 +40,11 @@ $api.interceptors.response.use(config => {
         } catch (e) {
             console.log('НЕ АВТОРИЗОВАН', e);
             localStorage.removeItem('access');
-        }
+        }*/
+        localStorage.removeItem('access');
+        cookies.remove('refresh');
+
+        window.location.href = "/main";
     }
     return Promise.reject(error);
 })
