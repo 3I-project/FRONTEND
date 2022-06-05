@@ -23,7 +23,7 @@
           <div class="comment-item" v-for="comment in comments" :key="comment.id_comment">
             <div class="comment-item__top">
               <div class="user-avatar">
-                <img :src="`https://avatars.dicebear.com/api/avataaars/${ comment.author.first_name }.svg`" alt="">
+                <img :src="avatarUrl(comment.author.avatarHash)" alt="">
               </div>
               <p>
                 {{ comment.author.first_name }} {{ comment.author.last_name }}
@@ -120,12 +120,21 @@ export default {
       if (n >= 2 && n <= 4) return dict[1];
       return dict[2];
     },
+    avatarUrl(avatarHash) {
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+
+      if (avatarHash) {
+        return `${baseURL}/avatar/${ avatarHash }`
+      }
+
+      return require('../../assets/default-avatar.jpg')
+    },
     async sendComment () {
       if (!this.commentInput.length) return
 
       const requestPayload = {
         text: this.commentInput,
-        id_idea: this.$route.params.id
+        id_idea: this.$route.params.id,
       }
 
       await this.$api.post('/comments/create', requestPayload)
