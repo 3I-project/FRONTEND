@@ -1,7 +1,7 @@
 <template>
     <div class="page employees-page">
       <div class="employees-page__header">
-        <h1>Организация "{{ userProfile && userProfile.organization && userProfile.organization.name }}"</h1>
+        <h1>Организация "{{ userProfile && userProfile.organization && userProfile.organization.name  || userProfile.name}}"</h1>
         <small>Сотрудников {{ employeesList.employees && employeesList.employees.length }} чел.</small>
       </div>
       <div class="employees-page__main">
