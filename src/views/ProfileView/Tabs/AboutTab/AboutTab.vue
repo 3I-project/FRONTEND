@@ -90,7 +90,7 @@ export default {
         }
       }
 
-      const { data } = await axios.post('http://localhost:6500/apiV1/update-pi', payload,{
+      const { data } = await axios.post('http://134.0.115.249:6500/apiV1/update-pi', payload,{
         headers: {
           Authorization: localStorage.getItem('access')
         }
