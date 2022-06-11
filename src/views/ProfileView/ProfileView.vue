@@ -101,7 +101,7 @@ export default {
   methods: {
     async getUserData (id) {
       this.isLoading = true
-      const { data } = await axios.get(`http://134.0.115.249:5500/apiV1/profile/${id}`, {
+      const { data } = await axios.get(`http://134.0.115.249:6500/apiV1/profile/${id}`, {
         headers: {
           Authorization: localStorage.getItem('access')
         }
