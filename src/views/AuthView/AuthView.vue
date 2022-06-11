@@ -1,7 +1,7 @@
 <template>
-  <transition name="fade">
+  <!-- <transition name="fade">
     <ReCaptcha v-if="reCaptchaOpen" @verifyStatus="(captchaData) => authorization(captchaData)" />
-  </transition>
+  </transition> -->
   <div class="auth-window login-window">
     <div class="auth-window__back" @click="$router.push('/main')">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,7 +52,7 @@
       </div>
       <span class="error" :class="{'error_visible': error.status}">{{ error.message }}</span>
       <div class="login-window__btn">
-        <MyButton @click="startCaptchaValidation" :is-loading="isLoadingResponse" class="orange-btn">Войти</MyButton>
+        <MyButton @click="authorization" :is-loading="isLoadingResponse" class="orange-btn">Войти</MyButton>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@ import MyButton from "../../components/UI/MyButton/MyButton.vue";
 import MyCheckBox from "../../components/UI/MyCheckBox/MyCheckBox";
 import MyInput from "../../components/UI/MyInput/MyInput.vue";
 
-import ReCaptcha from "../../components/ReCaptcha/ReCaptcha.vue";
+// import ReCaptcha from "../../components/ReCaptcha/ReCaptcha.vue";
 
 export default {
   name: "AuthView",
@@ -86,29 +86,29 @@ export default {
     MyCheckBox,
     MyInput,
     MyButton,
-    ReCaptcha
+    // ReCaptcha
   },
   methods: {
     startCaptchaValidation() {
       // Проверка на наличие данных в полях ввода
-      if (!this.login?.length || !this.password?.length) {
-        this.error.status = true;
-        this.error.message = 'Поля не могут быть пустыми!'
+      // if (!this.login?.length || !this.password?.length) {
+      //   this.error.status = true;
+      //   this.error.message = 'Поля не могут быть пустыми!'
 
-        return;
-      }
+      //   return;
+      // }
       this.error.status = false;
 
       this.reCaptchaOpen = true;
     },
-    async authorization(captchaData) {
+    async authorization() {
       this.reCaptchaOpen = false;
 
-      const { token, status } = captchaData;
+      // const { token, status } = captchaData;
 
-      if (!status) {
-        return
-      }
+      // if (!status) {
+      //   return
+      // }
 
       // Формируем обект body
       const requestPayload = {
@@ -116,7 +116,7 @@ export default {
         data: {
           login: this.login,
           password: this.password,
-          reCaptchaToken: token
+          // reCaptchaToken: token
         }
       }
 

@@ -1,21 +1,21 @@
 <template>
   <div class="page home-page">
-    <!-- Комопонент загрузки станицы -->
+    <!-- Компонент загрузки страницы -->
     <div class="idea-loader" v-if="isLoading">
       <Loader :loader-text="'Идет загрузка идей ...'" />
     </div>
     <div class="home-page__wrapper" v-else>
       <div class="search-wrapper">
-        <!-- Комопонент фильтрации идей -->
+        <!-- Компонент фильтрации идей -->
         <SearchFilter @filteringData="setFilteredData" /> 
       </div>
       <div class="ideas-wrapper" v-if="ideas.length">
         <div class="wrapper-item" v-for="idea in ideas" :key="idea.id_idea">
-          <!-- Комопонент идеи -->
+          <!-- Компонент идеи -->
           <Idea :idea="idea" :set-idea-link="true" />
         </div>
       </div>
-      <!-- Если идеи отсутствуют, то выводит соответствующую запись -->
+      <!-- Если идеи отсутствуют, то выводит запись "Ничего не найдено" -->
       <div class="empty-block" v-if="!ideas.length">
         <p>
           Ничего не найдено
@@ -44,7 +44,7 @@ export default {
       isFiltered: false,
     }
   },
-  components: { // Регистарция компонентов
+  components: { // Регистрация компонентов
     Idea,
     Loader,
     SearchFilter
