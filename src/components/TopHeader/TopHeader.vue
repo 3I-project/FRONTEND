@@ -51,7 +51,7 @@ export default {
   computed: {
     ...mapGetters(['userProfile']),
     avatarUrl () {
-      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'http://134.0.115.249:5500/apiV1'
 
       if (this.userProfile.avatarUrl) {
         return `${baseURL}/avatar/${ this.userProfile.avatarUrl }`

@@ -116,7 +116,7 @@ export default {
       return JSON.parse(this.idea.message_text)
     },
     avatarUrl() {
-      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'http://134.0.115.249:5500/apiV1'
 
       if (this.idea.author.avatarHash) {
         return `${baseURL}/avatar/${ this.idea.author.avatarHash }`

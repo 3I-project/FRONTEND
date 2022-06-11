@@ -86,7 +86,7 @@ export default {
   computed: {
     ...mapGetters(['userProfile']),
     avatarUrl () {
-      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'https://server-3i.herokuapp.com/apiV1'
+      const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:5500/apiV1': 'http://134.0.115.249:5500/apiV1'
 
       if (this.userData.avatarUrl) {
         return `${baseURL}/avatar/${ this.userData.avatarUrl }`
@@ -101,7 +101,7 @@ export default {
   methods: {
     async getUserData (id) {
       this.isLoading = true
-      const { data } = await axios.get(`http://localhost:6500/apiV1/profile/${id}`, {
+      const { data } = await axios.get(`http://134.0.115.249:5500/apiV1/profile/${id}`, {
         headers: {
           Authorization: localStorage.getItem('access')
         }
