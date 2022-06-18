@@ -30,32 +30,26 @@ jest.mock('axios', () => ({
 describe('AuthView.vue', () => {
   it('Проверка на вывод сообщения о незаполненных полях', () => {
     const wrapper = mount(AuthView);
-
     wrapper.setData({ // ввод данных в форму
       login: null,
       password: null
     })
-
     wrapper.findComponent({ name: 'MyButton' }).trigger('click'); // событие нажатия на кнопку "ВОЙТИ"
-
-    expect(wrapper.vm.error.status).toBe(true); // проверка что статуст ошибки TRUE
+    expect(wrapper.vm.error.status).toBe(true); // проверка что статус ошибки TRUE
     expect(wrapper.find('.error').text()).toEqual('Поля не могут быть пустыми!'); // проверка текста ошибки
   });
 
   it('Пользователь ввел корректные данные', async () => {
     const wrapper = mount(AuthView);
-
     await wrapper.setData({ // ввод данных в форму
       type: 'employee',
       login: 'TankistPro',
       password: 'Qwerty1234'
     })
-
     await wrapper.findComponent({name: 'MyButton'}).trigger('click'); // событие нажатия на кнопку "ВОЙТИ"
     await flushPromises()
-    expect(wrapper.vm.error.status).toBe(false); // проверка что статуст ошибки FALSE
-  } )
-})
+    expect(wrapper.vm.error.status).toBe(false); // проверка что статус ошибки FALSE
+  })})
 
 // it('Пользователь ввел данные несуществующиего пользователя', async () => {
 //   const wrapper = mount(AuthView);

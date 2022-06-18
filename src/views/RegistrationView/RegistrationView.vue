@@ -26,6 +26,7 @@
           Сотрудник организации
         </MyCheckBox>
         <MyCheckBox
+            style="opacity: 0.5; pointer-events: none;"
             :value="'organization'"
             :check-box-group="'regType'"
             :elementID="'organization'"
