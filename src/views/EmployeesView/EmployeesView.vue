@@ -16,7 +16,7 @@
             </p>
             <small>{{ employee.isLeader ? 'Руководитель' : 'Сотрудник' }}</small>
           </div>
-          <div class="employee-item__statistic">
+          <div class="employee-item__statistic" style="display:none;">
             Опубликовано идей: 1
           </div>
 <!--          <div class="employee-item__controllers">
