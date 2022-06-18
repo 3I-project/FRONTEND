@@ -24,12 +24,12 @@
                 </svg>
               </div>
             </div>
-            <div class="drop-menu" :class="{'open-menu': isOpenMenu}">
+          </div>
+          <div class="drop-menu" :class="{'open-menu': isOpenMenu}">
               <ul>
                 <li @click="exit">Выход</li>
               </ul>
             </div>
-          </div>
         </div>
       </div>
     </div>

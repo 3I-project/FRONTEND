@@ -10,10 +10,15 @@
 
   &-wrapper {
     width: 100%;
-    height: 50px;
+    // height: 50px;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    a {
+      height: 50px;
+    }
 
     nav {
       display: flex;
@@ -22,7 +27,7 @@
 
       a {
         width: 233px;
-        height: 100%;
+        // height: 100%;
         background: transparent;
         border-radius: 8px;
         color: #596678;
@@ -63,7 +68,7 @@
       color: #FF5018;
       font-size: 1.125rem;
       width: 223px;
-      height: 100%;
+      // height: 100%;
       background: #FFFFFF;
       border: 1px solid #FF5018;
       margin-right: 43px;
@@ -82,6 +87,8 @@
     .user-block {
       display: flex;
       align-items: center;
+      height: 100%;
+      position: relative;
 
       .user-avatar {
         overflow: hidden;
@@ -139,32 +146,33 @@
             transform: rotate(180deg);
           }
         }
+      }
 
-        .drop-menu {
-          position: absolute;
-          top: 144%;
-          left: 0;
-          right: 0;
-          background-color: #efefef;
-          border-radius: 0 0 5px 5px;
-          box-sizing: border-box;
-          overflow: hidden;
-          height: 0;
+      .drop-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #efefef;
+        border-radius: 0 0 5px 5px;
+        box-sizing: border-box;
+        overflow: hidden;
+        height: 0;
+        transition: .3s all;
+        z-index: 1;
+
+        &.open-menu {
           transition: .3s all;
+          height: 38px;
+        }
 
-          &.open-menu {
-            transition: .3s all;
-            height: 34px;
-            z-index: 1;
-          }
+        ul {
+          list-style: none;
 
-          ul {
-            list-style: none;
-
-            li {
-              padding: 7px 5px;
-              cursor: pointer;
-            }
+          li {
+            padding: 10px 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
           }
         }
       }
